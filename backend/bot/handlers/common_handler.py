@@ -5,7 +5,7 @@ from aiogram.types import Message
 
 from bot.database.main import firebase
 from bot.database.operations.user.getters import get_user
-from bot.helpers.initializers.initialize_user_for_the_first_time import initialize_user_for_the_first_time
+from bot.helpers.initializers.initialize_user import initialize_user
 from bot.locales.texts import Texts
 
 common_router = Router()
@@ -19,7 +19,7 @@ async def start(message: Message, state: FSMContext):
     user = await get_user(user_id)
     if not user:
         transaction = firebase.db.transaction()
-        await initialize_user_for_the_first_time(transaction, message.from_user)
+        await initialize_user(transaction, message.from_user)
 
     greeting = Texts.START
     await message.answer(

@@ -10,3 +10,9 @@ async def update_cart(cart_id: str, data: Dict) -> None:
     data['edited_at'] = datetime.now(timezone.utc)
 
     await cart_ref.update(data)
+
+
+async def update_cart_in_transaction(transaction, cart_id: str, data: Dict):
+    data['edited_at'] = datetime.now(timezone.utc)
+
+    transaction.update(firebase.db.collection(Cart.COLLECTION_NAME).document(cart_id), data)

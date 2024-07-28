@@ -8,21 +8,29 @@ async def create_product_object(
     cost: int,
     weight: int,
     photos: list[str],
-    type: ProductType,
+    type_id: str,
     composition: str,
     size: dict,
     count: int,
 ) -> Product:
-    order_ref = firebase.db.collection(Product.COLLECTION_NAME).document()
+    product_ref = firebase.db.collection(Product.COLLECTION_NAME).document()
     return Product(
-        id=order_ref.id,
+        id=product_ref.id,
         title=title,
         description=description,
         cost=cost,
         weight=weight,
         photos=photos,
-        type=type,
+        type_id=type_id,
         composition=composition,
         size=size,
         count=count,
+    )
+
+
+async def create_product_type_object(name: str) -> ProductType:
+    product_type_ref = firebase.db.collection(ProductType.COLLECTION_NAME).document()
+    return ProductType(
+        id=product_type_ref.id,
+        name=name,
     )

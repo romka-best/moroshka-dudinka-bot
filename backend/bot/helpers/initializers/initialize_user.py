@@ -6,7 +6,7 @@ from bot.database.operations.user.writers import write_user_in_transaction
 
 
 @firestore.async_transactional
-async def initialize_user_for_the_first_time(
+async def initialize_user(
     transaction,
     telegram_user: User,
 ):

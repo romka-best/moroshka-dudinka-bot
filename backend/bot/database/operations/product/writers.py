@@ -1,6 +1,6 @@
 from bot.database.main import firebase
 from bot.database.models.product import Product, ProductType
-from bot.database.operations.product.helpers import create_product_object
+from bot.database.operations.product.helpers import create_product_object, create_product_type_object
 
 
 async def write_product(
@@ -9,7 +9,7 @@ async def write_product(
     cost: int,
     weight: int,
     photos: list[str],
-    type: ProductType,
+    type_id: str,
     composition: str,
     size: dict,
     count: int,
@@ -20,7 +20,7 @@ async def write_product(
         cost,
         weight,
         photos,
-        type,
+        type_id,
         composition,
         size,
         count,
@@ -30,3 +30,12 @@ async def write_product(
     )
 
     return product
+
+
+async def write_product_type(name: str) -> ProductType:
+    product_type = await create_product_type_object(name)
+    await firebase.db.collection(ProductType.COLLECTION_NAME).document(product_type.id).set(
+        product_type.to_dict()
+    )
+
+    return product_type

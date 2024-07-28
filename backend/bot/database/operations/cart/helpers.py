@@ -1,9 +1,8 @@
 from bot.database.main import firebase
-from bot.database.models.cart import Cart
-from bot.database.models.product import Product
+from bot.database.models.cart import Cart, CartItem
 
 
-async def create_cart_object(user_id: str, items: list[Product]) -> Cart:
+async def create_cart_object(user_id: str, items: list[CartItem]) -> Cart:
     cart_ref = firebase.db.collection(Cart.COLLECTION_NAME).document()
     return Cart(
         id=cart_ref.id,
