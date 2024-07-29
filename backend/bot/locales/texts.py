@@ -5,6 +5,7 @@ class Texts(Protocol):
     START = """
 Привет 🎉
 """
+    ORDER_CAKES = "Заказать тортики 🎂"
 
     # errors
     NETWORK_ERROR = """

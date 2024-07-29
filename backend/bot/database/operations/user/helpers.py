@@ -16,6 +16,4 @@ def create_user_object(
         is_blocked=False,
         is_banned=False,
         is_admin=False,
-        created_at=user_data.get("created_at"),
-        edited_at=user_data.get("edited_at"),
     )

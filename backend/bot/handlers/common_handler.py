@@ -6,6 +6,7 @@ from aiogram.types import Message
 from bot.database.main import firebase
 from bot.database.operations.user.getters import get_user
 from bot.helpers.initializers.initialize_user import initialize_user
+from bot.keyboards.common import build_start_keyboard
 from bot.locales.texts import Texts
 
 common_router = Router()
@@ -22,7 +23,9 @@ async def start(message: Message, state: FSMContext):
         await initialize_user(transaction, message.from_user)
 
     greeting = Texts.START
+    keyboard = build_start_keyboard()
     await message.answer(
         text=greeting,
+        keyboard=keyboard,
         message_effect_id="5046509860389126442",
     )
