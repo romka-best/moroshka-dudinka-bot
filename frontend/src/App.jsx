@@ -27,22 +27,25 @@ function App() {
             ref={catalogRef}
             icon={CATALOG}
             size={32}
+            colorize='var(--tg-theme-button-text-color)'
           />
           <p>каталог</p>
         </div>
-        <div className={css['App-nav-item']}>
+        <div className={css['App-nav-item']} onClick={() => cartRef.current?.playFromBeginning()}>
           <Player
             ref={cartRef}
             icon={CART}
             size={32}
+            colorize='var(--tg-theme-button-text-color)'
           />
           <p>корзина</p>
         </div>
-        <div className={css['App-nav-item']}>
+        <div className={css['App-nav-item']} onClick={() => profileRef.current?.playFromBeginning()}>
           <Player
             ref={profileRef}
             icon={PROFILE}
             size={32}
+            colorize='var(--tg-theme-button-text-color)'
           />
           <p>профиль</p>
         </div>
