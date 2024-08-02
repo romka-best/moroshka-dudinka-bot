@@ -38,7 +38,7 @@ function App() {
             ref={catalogRef}
             icon={CATALOG}
             size={32}
-            colorize='var(--tg-theme-accent-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>каталог</p>
         </div>
@@ -47,7 +47,7 @@ function App() {
             ref={cartRef}
             icon={CART}
             size={32}
-            colorize='var(--tg-theme-accent-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>корзина</p>
         </div>
@@ -56,7 +56,7 @@ function App() {
             ref={profileRef}
             icon={PROFILE}
             size={32}
-            colorize='var(--tg-theme-accent-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>профиль</p>
         </div>
