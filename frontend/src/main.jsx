@@ -10,6 +10,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <ConfigProvider
       locale={ruRU}
+      theme={{
+        "token": {
+          "colorPrimary": "var(--tg-theme-bg-color)",
+          "colorTextBase": "var(--tg-theme-text-color)"
+        },
+      }}
     >
       <App>
         <Router />
