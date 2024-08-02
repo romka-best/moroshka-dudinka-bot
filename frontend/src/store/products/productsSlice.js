@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  products: null,
+  products: [],
   loading: false,
   error: null,
 };
@@ -10,12 +10,17 @@ const initialState = {
 // const API_URL = import.meta.env.VITE_API_BASE;
 const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
-export const getProducts = createAsyncThunk('products/getProducts', async ({ title, page, size }) => {
+export const getProducts = createAsyncThunk('products/getProducts', async ({ title = '', page = 1, size = 20 }) => {
   const response = await axios.get(
     `${API_URL}/api/v1/products`,
     {
       headers: {
         'Content-Type': 'application/json',
+      },
+      params: {
+        title,
+        page,
+        size,
       },
       withCredentials: false,
     },

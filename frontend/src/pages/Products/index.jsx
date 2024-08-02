@@ -1,7 +1,8 @@
-import { List, Typography } from 'antd';
+import { Input, List, Typography } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/products/productsSlice';
+import { SearchOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -13,12 +14,23 @@ const Products = () => {
     dispatch(getProducts({}));
   }, []);
 
+  const onSearchProduct = (title) => {
+    dispatch(getProducts({ title: title.target.value }))
+  };
+
   return (
     <div>
-      <Title level={2}>Продукты</Title>
-      <List>
-        
-      </List>
+      <Title>Каталог</Title>
+      <Input
+        placeholder='Поиск по товарам'
+        prefix={<SearchOutlined />}
+        onChange={onSearchProduct}
+        size='large'
+      />
+      <List
+        dataSource={products}
+        // renderItem={}
+      />
     </div>
   );
 };
