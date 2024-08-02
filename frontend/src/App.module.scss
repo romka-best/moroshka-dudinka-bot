@@ -1,0 +1,22 @@
+.App {
+  &-nav {
+    // height: 50px;
+    display: flex;
+    border-top: 1px solid #dedede;
+    justify-content: space-evenly;
+    padding: 10px 10px 25px 10px;
+    position: fixed;
+    background: var(--tg-theme-secondary-bg-color);
+    bottom: 0;
+    width: 100%;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--tg-theme-button-text-color);
+    }
+  }
+}
