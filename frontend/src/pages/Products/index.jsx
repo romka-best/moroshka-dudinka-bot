@@ -7,6 +7,8 @@ import _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
 
+const tg = window.Telegram.WebApp;
+
 const { Title, Paragraph } = Typography;
 
 const Products = () => {
@@ -33,6 +35,10 @@ const Products = () => {
     if (loading) return
 
     dispatch(getProducts({ title: search, page: page + 1 }));
+  };
+
+  const onAddCart = () => {
+    tg.HapticFeedback.impactOccurred('rigid')
   };
 
   return (
@@ -81,7 +87,13 @@ const Products = () => {
                 <Paragraph ellipsis={true}>
                   {item?.description}
                 </Paragraph>
-                <Button type='primary' size='large'>В корзину</Button>
+                <Button
+                  type='primary'
+                  size='large'
+                  onClick={onAddCart}
+                >
+                  В корзину
+                </Button>
               </Flex>
             )}
           />
