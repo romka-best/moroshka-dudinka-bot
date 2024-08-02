@@ -1,6 +1,12 @@
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <div>
+      <Title>Корзина</Title>
+    </div>
   );
 };
 

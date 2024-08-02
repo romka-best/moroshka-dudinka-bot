@@ -1,6 +1,12 @@
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div>
+      <Title>Профиль</Title>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -73,7 +73,10 @@ const Products = () => {
                     <h3>ТОРТ 4</h3>
                   </div>
                 </Carousel>
-                <Title level={5}>{item?.title}</Title>
+                <Title level={4}>{item?.title}</Title>
+                <Paragraph ellipsis={true}>
+                  {item?.description}
+                </Paragraph>
               </Flex>
             )}
           />
