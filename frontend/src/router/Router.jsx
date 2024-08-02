@@ -1,15 +1,11 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from '../App';
-import { useDispatch } from 'react-redux';
-import { getProducts } from '../store/products/productsSlice';
 
 import Products from '../pages/Products';
 import Cart from '../pages/Cart';
 import Profile from '../pages/Profile';
 
 const Router = () => {
-  const dispatch = useDispatch();
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -24,7 +20,6 @@ const Router = () => {
         {
           path: '/products',
           element: <Products />,
-          loader: () => dispatch(getProducts({})),
           index: true,
         },
         {

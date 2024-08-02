@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -8,7 +8,7 @@ const initialState = {
 };
 
 // const API_URL = import.meta.env.VITE_API_BASE;
-const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
+const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
 export const getProducts = createAsyncThunk('products/getProducts', async ({ title, page, size }) => {
   const response = await axios.get(
@@ -29,16 +29,16 @@ const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(getProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload);
-        // state.products = action.payload?.user;
+        console.log(action.payload, 'TEST');
+        state.products = action.payload?.items;
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(getProducts.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });
