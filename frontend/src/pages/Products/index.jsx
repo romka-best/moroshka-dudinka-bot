@@ -76,7 +76,12 @@ const Products = () => {
         id='scrollableDiv'
         className={css['Products-container']}
       >
-        <Spin spinning={isEmpty(products) && loading}>
+        <Spin
+          spinning={isEmpty(products) && loading}
+          fullscreen
+          percent='auto'
+          size='large'
+        >
           <InfiniteScroll
             dataLength={total}
             next={loadMoreData}

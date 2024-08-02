@@ -28,8 +28,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           },
           "Input": {
             "algorithm": true,
-            "colorBgContainer": tg?.themeParams?.bg_color ?? '#FFF'
-          }
+            "colorBgContainer": tg?.themeParams?.bg_color ?? '#FFF',
+            "activeBg": tg.themeParams?.bg_color ?? '#FFF',
+            "activeBorderColor": tg.themeParams?.button_color ?? '#DE3163',
+          },
         }
       }}
     >
