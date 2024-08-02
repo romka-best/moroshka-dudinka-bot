@@ -53,6 +53,7 @@ const productsSlice = createSlice({
       .addCase(getProducts.rejected, (state) => {
         state.loading = false;
         state.error = true;
+        state.products = [];
       });
   },
 });

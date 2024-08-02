@@ -56,7 +56,7 @@ const Products = () => {
 
   const handleCloseDetails = () => {
     setDetails({
-      product: {},
+      ...details,
       open: false,
     });
   };
@@ -94,21 +94,23 @@ const Products = () => {
             dataSource={products}
             locale={{ emptyText: loading ? 'Загрузка...' : 'Ничего не нашлось' }}
             renderItem={(item) => (
-              <Flex key={item?.id} className={css['Products-item']} vertical onClick={() => handleOpenDetails(item)}>
-                <Carousel draggable onSwipe={e => e.preventDefault()}>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 2</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 3</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 4</h3>
-                  </div>
-                </Carousel>
+              <Flex key={item?.id} className={css['Products-item']} vertical>
+                <div onClick={() => handleOpenDetails(item)}>
+                  <Carousel draggable onSwipe={e => e.preventDefault()}>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 2</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 3</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 4</h3>
+                    </div>
+                  </Carousel>
+                </div>
                 <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
                   <Title level={4}>{item?.title}</Title>
                   <Paragraph ellipsis={true}>

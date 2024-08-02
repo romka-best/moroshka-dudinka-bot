@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       theme={{
         "token": {
           "colorPrimary": tg?.themeParams?.bg_color ?? '#DE3163',
-          "colorTextBase": tg?.themeParams?.text_color ?? '#000'
+          "colorTextBase": tg?.themeParams?.text_color ?? '#000',
         },
         "components": {
           "Button": {
@@ -32,6 +32,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             "activeBg": tg.themeParams?.bg_color ?? '#FFF',
             "activeBorderColor": tg.themeParams?.button_color ?? '#DE3163',
           },
+          "Drawer": {
+            "colorBgElevated": tg.themeParams?.bg_color ?? '#FFF',
+          }
         }
       }}
     >
