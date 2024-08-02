@@ -14,9 +14,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       locale={ruRU}
       theme={{
         "token": {
-          "colorPrimary": tg?.themeParams?.bg_color ?? '#fff',
+          "colorPrimary": tg?.themeParams?.bg_color ?? '#DE3163',
           "colorTextBase": tg?.themeParams?.text_color ?? '#000'
         },
+        "components": {
+          "Button": {
+            "defaultShadow": "",
+            "primaryShadow": "",
+            "dangerShadow": ""
+          },
+          "Input": {
+            "algorithm": true,
+            "colorBgContainer": tg?.themeParams?.bg_color ?? '#FFF'
+          }
+        }
       }}
     >
       <App>
