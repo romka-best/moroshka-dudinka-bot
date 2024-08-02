@@ -79,54 +79,52 @@ const Products = () => {
         <Spin
           spinning={isEmpty(products) && loading}
           fullscreen
-          percent='auto'
           size='large'
+        />
+        <InfiniteScroll
+          dataLength={total}
+          next={loadMoreData}
+          hasMore={pages >= page}
+          loader={loading && <Skeleton title={false} paragraph={{ rows: 4 }} active />}
+          // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+          scrollableTarget="scrollableDiv"
         >
-          <InfiniteScroll
-            dataLength={total}
-            next={loadMoreData}
-            hasMore={pages >= page}
-            loader={loading && <Skeleton title={false} paragraph={{ rows: 4 }} active />}
-            // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-            scrollableTarget="scrollableDiv"
-          >
-            <List
-              dataSource={products}
-              locale={{ emptyText: loading ? 'Загрузка...' : 'Ничего не нашлось' }}
-              renderItem={(item) => (
-                <Flex key={item?.id} className={css['Products-item']} vertical onClick={() => handleOpenDetails(item)}>
-                  <Carousel draggable onSwipe={e => e.preventDefault()}>
-                    <div className={css['Products-item-img']}>
-                      <h3>ТОРТ</h3>
-                    </div>
-                    <div className={css['Products-item-img']}>
-                      <h3>ТОРТ 2</h3>
-                    </div>
-                    <div className={css['Products-item-img']}>
-                      <h3>ТОРТ 3</h3>
-                    </div>
-                    <div className={css['Products-item-img']}>
-                      <h3>ТОРТ 4</h3>
-                    </div>
-                  </Carousel>
-                  <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
-                    <Title level={4}>{item?.title}</Title>
-                    <Paragraph ellipsis={true}>
-                      {item?.description}
-                    </Paragraph>
-                  </Flex>
-                  <Button
-                    type='primary'
-                    size='large'
-                    onClick={onAddCart}
-                  >
-                    В корзину
-                  </Button>
+          <List
+            dataSource={products}
+            locale={{ emptyText: loading ? 'Загрузка...' : 'Ничего не нашлось' }}
+            renderItem={(item) => (
+              <Flex key={item?.id} className={css['Products-item']} vertical onClick={() => handleOpenDetails(item)}>
+                <Carousel draggable onSwipe={e => e.preventDefault()}>
+                  <div className={css['Products-item-img']}>
+                    <h3>ТОРТ</h3>
+                  </div>
+                  <div className={css['Products-item-img']}>
+                    <h3>ТОРТ 2</h3>
+                  </div>
+                  <div className={css['Products-item-img']}>
+                    <h3>ТОРТ 3</h3>
+                  </div>
+                  <div className={css['Products-item-img']}>
+                    <h3>ТОРТ 4</h3>
+                  </div>
+                </Carousel>
+                <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
+                  <Title level={4}>{item?.title}</Title>
+                  <Paragraph ellipsis={true}>
+                    {item?.description}
+                  </Paragraph>
                 </Flex>
-              )}
-            />
-          </InfiniteScroll>
-        </Spin>
+                <Button
+                  type='primary'
+                  size='large'
+                  onClick={onAddCart}
+                >
+                  В корзину
+                </Button>
+              </Flex>
+            )}
+          />
+        </InfiniteScroll>
       </div>
       <ProductDetails
         open={details.open}
