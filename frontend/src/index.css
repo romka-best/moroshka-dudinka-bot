@@ -12,6 +12,6 @@ html, body {
   background: #fff;
 }
 
-/* #root {
+#root {
   min-height: 100vh;
-} */
+}

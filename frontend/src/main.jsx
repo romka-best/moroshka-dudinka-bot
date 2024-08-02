@@ -6,14 +6,16 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Router from './router/Router.jsx';
 
+const tg = window.Telegram.WebApp;
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <ConfigProvider
       locale={ruRU}
       theme={{
         "token": {
-          "colorPrimary": "var(--tg-theme-bg-color)",
-          "colorTextBase": "var(--tg-theme-text-color)"
+          "colorPrimary": tg?.themeParams?.bg_color ?? '#fff',
+          "colorTextBase": tg?.themeParams?.text_color ?? '#000'
         },
       }}
     >
