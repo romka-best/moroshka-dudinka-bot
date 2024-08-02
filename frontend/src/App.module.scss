@@ -1,4 +1,6 @@
 .App {
+  padding: 20px;
+
   &-nav {
     // height: 50px;
     display: flex;
@@ -9,6 +11,7 @@
     background: var(--tg-theme-secondary-bg-color);
     bottom: 0;
     width: 100%;
+    left: 0;
 
     &-item {
       display: flex;
