@@ -1,9 +1,9 @@
-import { Button, Carousel, Flex, Input, List, Skeleton, Typography } from 'antd';
+import { Button, Carousel, Flex, Input, List, Skeleton, Spin, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/products/productsSlice';
 import { SearchOutlined } from '@ant-design/icons';
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
 
@@ -57,47 +57,50 @@ const Products = () => {
         id='scrollableDiv'
         className={css['Products-container']}
       >
-        <InfiniteScroll
-          dataLength={total}
-          next={loadMoreData}
-          hasMore={pages >= page}
-          loader={loading && <Skeleton title={false} paragraph={{ rows: 4 }} active />}
-          // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-          scrollableTarget="scrollableDiv"
-        >
-          <List
-            dataSource={products}
-            renderItem={(item) => (
-              <Flex key={item?.id} className={css['Products-item']} vertical>
-                <Carousel onSwipe={e => e.preventDefault()}>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 2</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 3</h3>
-                  </div>
-                  <div className={css['Products-item-img']}>
-                    <h3>ТОРТ 4</h3>
-                  </div>
-                </Carousel>
-                <Title level={4}>{item?.title}</Title>
-                <Paragraph ellipsis={true}>
-                  {item?.description}
-                </Paragraph>
-                <Button
-                  type='primary'
-                  size='large'
-                  onClick={onAddCart}
-                >
-                  В корзину
-                </Button>
-              </Flex>
-            )}
-          />
-        </InfiniteScroll>
+        <Spin spinning={isEmpty(products) && loading}>
+          <InfiniteScroll
+            dataLength={total}
+            next={loadMoreData}
+            hasMore={pages >= page}
+            loader={loading && <Skeleton title={false} paragraph={{ rows: 4 }} active />}
+            // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+            scrollableTarget="scrollableDiv"
+          >
+            <List
+              dataSource={products}
+              locale={{ emptyText: loading ? 'Загрузка...' : 'Ничего не нашлось' }}
+              renderItem={(item) => (
+                <Flex key={item?.id} className={css['Products-item']} vertical>
+                  <Carousel draggable onSwipe={e => e.preventDefault()}>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 2</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 3</h3>
+                    </div>
+                    <div className={css['Products-item-img']}>
+                      <h3>ТОРТ 4</h3>
+                    </div>
+                  </Carousel>
+                  <Title level={4}>{item?.title}</Title>
+                  <Paragraph ellipsis={true}>
+                    {item?.description}
+                  </Paragraph>
+                  <Button
+                    type='primary'
+                    size='large'
+                    onClick={onAddCart}
+                  >
+                    В корзину
+                  </Button>
+                </Flex>
+              )}
+            />
+          </InfiniteScroll>
+        </Spin>
       </div>
     </div>
   );

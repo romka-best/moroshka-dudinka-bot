@@ -5,6 +5,8 @@
   }
 
   &-item {
+    background: var(--tg-theme-bg-color);
+
     &:first-child {
       margin-top: 20px;
     }
@@ -16,6 +18,7 @@
     &-img {
       height: 200px;
       background-color: #b74e4e;
+      // border-radius: 8px;
     }
   }
 }

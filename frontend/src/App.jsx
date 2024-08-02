@@ -4,7 +4,7 @@ import { Player } from '@lordicon/react';
 import CART from './assets/cart.json';
 import CATALOG from './assets/catalog.json';
 import PROFILE from './assets/profile.json';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 const tg = window.Telegram.WebApp;
 
@@ -12,6 +12,7 @@ console.log(tg)
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // icons
   const catalogRef = useRef(null);
@@ -25,7 +26,7 @@ function App() {
 
   const onClickNav = (route, ref) => {
     ref?.current?.playFromBeginning();
-    navigate(route);
+    location.pathname !== route && navigate(route);
     tg.HapticFeedback.impactOccurred('light');
   };
 
@@ -62,7 +63,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
