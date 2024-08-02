@@ -3,13 +3,13 @@ from fastapi import APIRouter, HTTPException, status
 from bot.database.operations.cart.getters import get_cart_by_user_id
 from bot.database.operations.user.getters import get_user
 
-router = APIRouter(
+user_router = APIRouter(
     prefix="/users",
     tags=["user"],
 )
 
 
-@router.get("/{user_id}")
+@user_router.get("/{user_id}")
 async def get_user_by_id(user_id: str):
     user = await get_user(user_id)
     if not user:

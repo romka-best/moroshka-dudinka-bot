@@ -12,6 +12,11 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.strategy import FSMStrategy
 
+from bot.api.admin import admin_router
+from bot.api.cart import cart_router
+from bot.api.order import order_router
+from bot.api.product import product_router
+from bot.api.user import user_router
 from bot.database.main import firebase
 from bot.handlers.common_handler import common_router
 from bot.helpers.handlers.handle_connection_error import handle_connection_error
@@ -56,6 +61,11 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.include_router(admin_router, prefix='/api/v1')
+app.include_router(cart_router, prefix='/api/v1')
+app.include_router(order_router, prefix='/api/v1')
+app.include_router(product_router, prefix='/api/v1')
+app.include_router(user_router, prefix='/api/v1')
 
 
 @app.post(WEBHOOK_BOT_PATH)

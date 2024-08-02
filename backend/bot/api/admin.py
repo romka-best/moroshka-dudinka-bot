@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from bot.database.main import firebase
 from bot.database.models.order import UpdateOrder
-from bot.database.models.product import CreateProductType, Product
+from bot.database.models.product import CreateProductType, CreateProduct
 from bot.database.operations.order.getters import get_orders, get_order
 from bot.database.operations.order.updaters import update_order
 from bot.database.operations.product.getters import get_products
@@ -11,13 +11,13 @@ from bot.database.operations.product.writers import write_product_type, write_pr
 from bot.database.operations.user.getters import get_user
 from bot.helpers.destructors.destruct_product_type import destruct_product_type
 
-router = APIRouter(
+admin_router = APIRouter(
     prefix="/admin",
     tags=["admin"],
 )
 
 
-@router.get("/orders", tags=["order"])
+@admin_router.get("/orders", tags=["order"])
 async def get_all_orders():
     orders = await get_orders()
 
@@ -31,7 +31,7 @@ async def get_all_orders():
     return result
 
 
-@router.get("/orders/{order_id}", tags=["order"])
+@admin_router.get("/orders/{order_id}", tags=["order"])
 async def get_order_by_id(order_id: str):
     order = await get_order(order_id)
     if not order:
@@ -47,7 +47,7 @@ async def get_order_by_id(order_id: str):
     }
 
 
-@router.patch("/orders/{order_id}", tags=["order"])
+@admin_router.patch("/orders/{order_id}", tags=["order"])
 async def update_order_by_id(order_id: str, updated_order: UpdateOrder):
     order = await get_order(order_id)
     if not order:
@@ -69,15 +69,15 @@ async def update_order_by_id(order_id: str, updated_order: UpdateOrder):
     )
 
 
-@router.post("/products", tags=["product"])
-async def create_product(created_product: Product):
-    await write_product(
+@admin_router.post("/products", tags=["product"])
+async def create_product(created_product: CreateProduct):
+    product = await write_product(
         title=created_product.title,
         description=created_product.description,
         cost=created_product.cost,
         weight=created_product.weight,
         photos=created_product.photos,
-        type_id=created_product.type_id,
+        type_ids=created_product.type_ids,
         composition=created_product.composition,
         size=created_product.size,
         count=created_product.count,
@@ -85,21 +85,21 @@ async def create_product(created_product: Product):
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
-        content={"message": "Product type was created"}
+        content={"message": f"Product {product.id} was created"}
     )
 
 
-@router.post("/products/types", tags=["product"])
+@admin_router.post("/products/types", tags=["product"])
 async def create_product_type(created_product_type: CreateProductType):
-    await write_product_type(created_product_type.name)
+    product_type = await write_product_type(created_product_type.name)
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
-        content={"message": "Product type was created"}
+        content={"message": f"Product type {product_type.id} was created"}
     )
 
 
-@router.delete("/products/types/{product_type_id}", tags=["product"])
+@admin_router.delete("/products/types/{product_type_id}", tags=["product"])
 async def delete_product_type(product_type_id: str):
     products = await get_products()
     transaction = firebase.db.transaction()
