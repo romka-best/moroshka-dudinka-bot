@@ -23,7 +23,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             "primaryShadow": "",
             "dangerShadow": "",
             "colorPrimary": tg?.themeParams?.button_color,
-            "colorText": tg?.themeParams?.button_text_color
+            "colorText": tg?.themeParams?.button_text_color,
+            "algorithm": true
           },
           "Input": {
             "algorithm": true,

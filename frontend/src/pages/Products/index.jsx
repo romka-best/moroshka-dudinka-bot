@@ -38,7 +38,7 @@ const Products = () => {
   };
 
   const onAddCart = () => {
-    tg.HapticFeedback.impactOccurred('rigid')
+    tg.HapticFeedback.impactOccurred('medium');
   };
 
   return (
