@@ -86,9 +86,9 @@ const Products = () => {
           dataLength={total}
           next={loadMoreData}
           hasMore={pages >= page}
-          loader={loading && <Skeleton title={false} paragraph={{ rows: 4 }} active />}
+          loader={loading && <Spin spinning size='large' />}
           // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-          scrollableTarget="scrollableDiv"
+          scrollableTarget='scrollableDiv'
         >
           <List
             dataSource={products}
@@ -112,6 +112,7 @@ const Products = () => {
                   </Carousel>
                 </div>
                 <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
+                  <div className={css['Products-item-text-price']}>{item?.cost}</div>
                   <Title level={4}>{item?.title}</Title>
                   <Paragraph ellipsis={true}>
                     {item?.description}
