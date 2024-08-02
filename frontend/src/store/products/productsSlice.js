@@ -5,12 +5,16 @@ const initialState = {
   products: [],
   loading: false,
   error: null,
+  pages: 0,
+  page: 1,
+  size: 0,
+  total: 0,
 };
 
 // const API_URL = import.meta.env.VITE_API_BASE;
 const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
-export const getProducts = createAsyncThunk('products/getProducts', async ({ title = '', page = 1, size = 20 }) => {
+export const getProducts = createAsyncThunk('products/getProducts', async ({ title = '', page = 0, size = 20 }) => {
   const response = await axios.get(
     `${API_URL}/api/v1/products`,
     {
@@ -40,8 +44,11 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload, 'TEST');
         state.products = action.payload?.items;
+        state.pages = action.payload?.pages;
+        state.page = action.payload?.page;
+        state.size = action.payload?.size;
+        state.total = action.payload?.total;
       })
       .addCase(getProducts.rejected, (state) => {
         state.loading = false;

@@ -1,0 +1,21 @@
+.Products {
+  &-container {
+    height: 100%;
+    overflow: auto;
+  }
+
+  &-item {
+    &:first-child {
+      margin-top: 20px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    &-img {
+      height: 200px;
+      background-color: #b74e4e;
+    }
+  }
+}
