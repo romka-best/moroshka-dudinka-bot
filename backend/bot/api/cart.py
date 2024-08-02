@@ -8,13 +8,13 @@ from bot.database.operations.cart.getters import get_cart
 from bot.database.operations.cart.updaters import update_cart
 from bot.database.operations.product.getters import get_product
 
-router = APIRouter(
+cart_router = APIRouter(
     prefix="/carts",
     tags=["cart"],
 )
 
 
-@router.get("/{cart_id}")
+@cart_router.get("/{cart_id}")
 async def get_cart_by_id(cart_id: str):
     cart = await get_cart(cart_id)
     if not cart:
@@ -37,7 +37,7 @@ async def get_cart_by_id(cart_id: str):
     }
 
 
-@router.put("/{cart_id}")
+@cart_router.put("/{cart_id}")
 async def put_item_to_cart(cart_id: str, item: CartItem):
     cart = await get_cart(cart_id)
     if not cart:
@@ -78,7 +78,7 @@ async def put_item_to_cart(cart_id: str, item: CartItem):
         )
 
 
-@router.delete("/{cart_id}")
+@cart_router.delete("/{cart_id}")
 async def clear_cart(cart_id: str):
     cart = await get_cart(cart_id)
     if not cart:

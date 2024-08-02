@@ -8,13 +8,13 @@ from bot.database.operations.order.getters import get_order
 from bot.database.operations.product.getters import get_product
 from bot.helpers.initializers.initialize_order import initialize_order
 
-router = APIRouter(
+order_router = APIRouter(
     prefix="/orders",
     tags=["order"],
 )
 
 
-@router.post("/")
+@order_router.post("/")
 async def create_order(created_order: CreateOrder):
     cart = await get_cart(created_order.cart_id)
     if not cart:
@@ -33,7 +33,7 @@ async def create_order(created_order: CreateOrder):
     )
 
 
-@router.get("/{order_id}")
+@order_router.get("/{order_id}")
 async def get_order_by_id(order_id: str):
     order = await get_order(order_id)
     if not order:

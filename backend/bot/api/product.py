@@ -5,16 +5,16 @@ from fastapi import APIRouter, Query
 
 from bot.database.operations.product.getters import get_product_types, get_products, get_product_type
 
-router = APIRouter(
+product_router = APIRouter(
     prefix="/products",
     tags=["product"],
 )
 
 
-@router.get("/products")
+@product_router.get("/")
 async def get_all_products(
     title: Optional[str] = None,
-    page: int = Query(1, gt=0),
+    page: int = Query(0, ge=0),
     size: int = Query(20, gt=0),
 ):
     all_products = await get_products()
@@ -22,7 +22,13 @@ async def get_all_products(
 
     result = []
     for product in products_by_page:
-        product_type = await get_product_type(product.type_id)
+        product_types = []
+        for product_type_id in product.type_ids:
+            product_type = await get_product_type(product_type_id)
+            product_types.append({
+                "id": product_type.id,
+                "name": product_type.name,
+            })
         result.append({
             "id": product.id,
             "title": product.title,
@@ -30,10 +36,7 @@ async def get_all_products(
             "cost": product.cost,
             "weight": product.weight,
             "photos": product.photos,
-            "type": {
-                "id": product_type.id,
-                "name": product_type.name,
-            },
+            "types": product_types,
             "composition": product.composition,
             "size": product.size,
             "count": product.count,
@@ -48,7 +51,7 @@ async def get_all_products(
     }
 
 
-@router.get("/products/types")
+@product_router.get("/types")
 async def get_all_product_types():
     product_types = await get_product_types()
 

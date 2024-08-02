@@ -9,7 +9,7 @@ class ProductType(BaseModel):
 
     id: str
     name: str
-    is_deleted: bool
+    is_deleted: Optional[bool] = False
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
     edited_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -30,7 +30,7 @@ class Product(BaseModel):
     cost: int
     weight: int
     photos: list[str]
-    type_id: Optional[str]
+    type_ids: list[str]
     composition: Optional[str]
     size: Optional[dict]
     count: int
@@ -39,3 +39,15 @@ class Product(BaseModel):
 
     def to_dict(self):
         return vars(self)
+
+
+class CreateProduct(BaseModel):
+    title: str
+    description: str
+    cost: int
+    weight: int
+    photos: Optional[list[str]] = []
+    type_ids: Optional[list[str]] = []
+    composition: Optional[str] = None
+    size: Optional[dict] = None
+    count: int

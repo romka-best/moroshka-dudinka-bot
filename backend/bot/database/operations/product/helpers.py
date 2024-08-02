@@ -8,7 +8,7 @@ async def create_product_object(
     cost: int,
     weight: int,
     photos: list[str],
-    type_id: str,
+    type_ids: list[str],
     composition: str,
     size: dict,
     count: int,
@@ -21,7 +21,7 @@ async def create_product_object(
         cost=cost,
         weight=weight,
         photos=photos,
-        type_id=type_id,
+        type_ids=type_ids,
         composition=composition,
         size=size,
         count=count,
@@ -33,4 +33,5 @@ async def create_product_type_object(name: str) -> ProductType:
     return ProductType(
         id=product_type_ref.id,
         name=name,
+        is_deleted=False,
     )

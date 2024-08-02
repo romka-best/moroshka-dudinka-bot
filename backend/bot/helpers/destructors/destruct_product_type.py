@@ -14,9 +14,9 @@ async def destruct_product_type(
     products: list[Product],
 ):
     for product in products:
-        if product.type_id == product_type_id:
+        if product_type_id in product.type_ids:
             await update_product_in_transaction(transaction, product.id, {
-                "type_id": firestore.DELETE_FIELD,
+                "type_ids": list(filter(lambda type_id: product_type_id != type_id, product.type_ids)),
             })
 
     await update_product_type_in_transaction(transaction, product_type_id, {"is_deleted": True})
