@@ -6,7 +6,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import _, { isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
-import ProductDetails from './parts/ProductDetails';
+import ProductDetails from '../../components/ProductDetails';
 
 const tg = window.Telegram.WebApp;
 
@@ -51,6 +51,7 @@ const Products = () => {
       product,
       open: true,
     });
+    tg.HapticFeedback.impactOccurred('medium');
   };
 
   const handleCloseDetails = () => {
