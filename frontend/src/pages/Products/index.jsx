@@ -1,4 +1,4 @@
-import { Carousel, Flex, Input, List, Skeleton, Typography } from 'antd';
+import { Button, Carousel, Flex, Input, List, Skeleton, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/products/productsSlice';
@@ -81,6 +81,7 @@ const Products = () => {
                 <Paragraph ellipsis={true}>
                   {item?.description}
                 </Paragraph>
+                <Button type='primary' size='large'>В корзину</Button>
               </Flex>
             )}
           />
