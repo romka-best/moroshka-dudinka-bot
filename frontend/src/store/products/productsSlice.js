@@ -7,7 +7,8 @@ const initialState = {
   error: null,
 };
 
-const API_URL = import.meta.env.VITE_API_BASE;
+// const API_URL = import.meta.env.VITE_API_BASE;
+const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
 export const getProducts = createAsyncThunk('products/getProducts', async ({ title, page, size }) => {
   const response = await axios.get(
