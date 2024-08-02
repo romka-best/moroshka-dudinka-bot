@@ -63,7 +63,7 @@ const Products = () => {
             dataSource={products}
             renderItem={(item) => (
               <Flex key={item?.id} className={css['Products-item']} vertical>
-                <Carousel>
+                <Carousel onSwipe={e => e.preventDefault()}>
                   <div className={css['Products-item-img']}>
                     <h3>ТОРТ</h3>
                   </div>
