@@ -13,8 +13,7 @@ console.log(tg)
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // icons
+  
   const catalogRef = useRef(null);
   const cartRef = useRef(null);
   const profileRef = useRef(null);
