@@ -6,6 +6,11 @@
 
   &-item {
     background: var(--tg-theme-bg-color);
+    border-radius: 8px;
+
+    &-text {
+      padding: 6px 10px 0 10px;
+    }
 
     &:first-child {
       margin-top: 20px;

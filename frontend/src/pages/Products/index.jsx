@@ -6,6 +6,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import _, { isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
+import ProductDetails from './parts/ProductDetails';
 
 const tg = window.Telegram.WebApp;
 
@@ -15,6 +16,10 @@ const Products = () => {
   const dispatch = useDispatch();
   const { products, loading, pages, page, size, total } = useSelector(state => state.products);
   const [search, setSearch] = useState('');
+  const [details, setDetails] = useState({
+    product: {},
+    open: false,
+  });
 
   useEffect(() => {
     dispatch(getProducts({}));
@@ -39,6 +44,20 @@ const Products = () => {
 
   const onAddCart = () => {
     tg.HapticFeedback.impactOccurred('medium');
+  };
+
+  const handleOpenDetails = (product) => {
+    setDetails({
+      product,
+      open: true,
+    });
+  };
+
+  const handleCloseDetails = () => {
+    setDetails({
+      product: {},
+      open: false,
+    });
   };
 
   return (
@@ -70,7 +89,7 @@ const Products = () => {
               dataSource={products}
               locale={{ emptyText: loading ? 'Загрузка...' : 'Ничего не нашлось' }}
               renderItem={(item) => (
-                <Flex key={item?.id} className={css['Products-item']} vertical>
+                <Flex key={item?.id} className={css['Products-item']} vertical onClick={() => handleOpenDetails(item)}>
                   <Carousel draggable onSwipe={e => e.preventDefault()}>
                     <div className={css['Products-item-img']}>
                       <h3>ТОРТ</h3>
@@ -85,10 +104,12 @@ const Products = () => {
                       <h3>ТОРТ 4</h3>
                     </div>
                   </Carousel>
-                  <Title level={4}>{item?.title}</Title>
-                  <Paragraph ellipsis={true}>
-                    {item?.description}
-                  </Paragraph>
+                  <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
+                    <Title level={4}>{item?.title}</Title>
+                    <Paragraph ellipsis={true}>
+                      {item?.description}
+                    </Paragraph>
+                  </Flex>
                   <Button
                     type='primary'
                     size='large'
@@ -102,6 +123,11 @@ const Products = () => {
           </InfiniteScroll>
         </Spin>
       </div>
+      <ProductDetails
+        open={details.open}
+        product={details.product}
+        onClose={handleCloseDetails}
+      />
     </div>
   );
 };
