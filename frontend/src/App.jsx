@@ -26,7 +26,7 @@ function App() {
   const onClickNav = (route, ref) => {
     ref?.current?.playFromBeginning();
     navigate(route);
-    tg.impactOccurred('light');
+    tg.HapticFeedback.impactOccurred('light');
   };
 
   return (
