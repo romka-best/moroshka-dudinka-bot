@@ -18,12 +18,16 @@ const Products = () => {
     dispatch(getProducts({}));
   }, []);
 
-  const onSearchProduct = (title) => {
-    setSearch(title.target.value);
+  const onSearchProductDebounce = (title) => {
     dispatch(getProducts({ title: title.target.value }));
   };
 
-  const getProductsDebounced = useCallback(_.debounce(onSearchProduct, 1000), []);
+  const getProductsDebounced = useCallback(_.debounce(onSearchProductDebounce, 1000), []);
+
+  const onSearchProduct = (e) => {
+    getProductsDebounced(e);
+    setSearch(e.target.value);
+  };
 
   const loadMoreData = () => {
     if (loading) return
@@ -37,7 +41,7 @@ const Products = () => {
       <Input
         placeholder='Поиск по товарам'
         suffix={<SearchOutlined />}
-        onChange={getProductsDebounced}
+        onChange={onSearchProduct}
         size='large'
         variant='filled'
         value={search}
