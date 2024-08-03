@@ -12,8 +12,13 @@ const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bo
 
 // Асинхронный thunk для получения данных пользователя
 export const getUser = createAsyncThunk('user/Login', async (userId) => {
-  const response = await axios.post(
+  const response = await axios.get(
     `${API_URL}/api/v1/users/${userId}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
   );
   return response.data;
 });
@@ -31,7 +36,7 @@ const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false;
         // state.user = action.payload?.user;
-        console.log(action.payload?.user, 'action.payload?.user')
+        console.log(action.payload, 'action.payload?.user')
       })
       .addCase(getUser.rejected, (state) => {
         state.loading = false;
