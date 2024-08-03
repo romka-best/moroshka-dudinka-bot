@@ -5,6 +5,7 @@ import CART from './assets/cart.json';
 import CATALOG from './assets/catalog.json';
 import PROFILE from './assets/profile.json';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const tg = window.Telegram.WebApp;
 
@@ -13,6 +14,7 @@ console.log(tg)
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   
   const catalogRef = useRef(null);
   const cartRef = useRef(null);
@@ -22,6 +24,7 @@ function App() {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
+    console.log(tg.user);
   }, []);
 
   const onClickNav = (route, ref) => {
