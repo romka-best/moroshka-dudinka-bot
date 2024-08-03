@@ -24,7 +24,7 @@ function App() {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
-    console.log(window.Telegram.WebAppInitData.user);
+    console.log(window.Telegram);
   }, []);
 
   const onClickNav = (route, ref) => {
