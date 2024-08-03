@@ -6,6 +6,8 @@ import CATALOG from './assets/catalog.json';
 import PROFILE from './assets/profile.json';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { getUser } from './store/user/userSlice';
+import classNames from 'classnames';
 
 const tg = window.Telegram.WebApp;
 
@@ -24,7 +26,7 @@ function App() {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
-    console.log(tg.initDataUnsafe?.query_id);
+    dispatch(getUser(tg.initDataUnsafe?.query_id));
   }, []);
 
   const onClickNav = (route, ref) => {
@@ -37,7 +39,7 @@ function App() {
     <div className={css['App']}>
       <Outlet />
       <div className={css['App-nav']}>
-        <div className={css['App-nav-item']} onClick={() => onClickNav('/products', catalogRef)}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/products' && css['App-nav-item-active'])} onClick={() => onClickNav('/products', catalogRef)}>
           <Player
             ref={catalogRef}
             icon={CATALOG}
@@ -46,7 +48,7 @@ function App() {
           />
           <p>каталог</p>
         </div>
-        <div className={css['App-nav-item']} onClick={() => onClickNav('/cart', cartRef)}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/cart' && css['App-nav-item-active'])} onClick={() => onClickNav('/cart', cartRef)}>
           <Player
             ref={cartRef}
             icon={CART}
@@ -55,7 +57,7 @@ function App() {
           />
           <p>корзина</p>
         </div>
-        <div className={css['App-nav-item']} onClick={() => onClickNav('/profile', profileRef)}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/profile' && css['App-nav-item-active'])} onClick={() => onClickNav('/profile', profileRef)}>
           <Player
             ref={profileRef}
             icon={PROFILE}

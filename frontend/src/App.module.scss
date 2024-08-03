@@ -23,6 +23,13 @@
       justify-content: center;
       cursor: pointer;
       color: var(--tg-theme-text-color);
+      opacity: .8;
+      transition: .2s opacity;
+      
+      &-active {
+        color: var(--tg-theme-accent-text-color);
+        opacity: 1;
+      }
     }
   }
 }
