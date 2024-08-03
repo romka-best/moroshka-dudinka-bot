@@ -12,6 +12,11 @@ html, body {
   background: var(--tg-theme-header-bg-color);
 }
 
+html,
+body {
+  overflow-y: hidden;
+}
+
 #root {
   min-height: 100vh;
   padding-bottom: 90px;
