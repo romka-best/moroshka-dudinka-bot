@@ -7,6 +7,7 @@ import uvicorn
 from aiogram.client.default import DefaultBotProperties
 from aiogram.exceptions import TelegramNetworkError, TelegramForbiddenError
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from aiogram import Bot, Dispatcher, types
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -61,11 +62,26 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
 app.include_router(admin_router, prefix='/api/v1')
 app.include_router(cart_router, prefix='/api/v1')
 app.include_router(order_router, prefix='/api/v1')
 app.include_router(product_router, prefix='/api/v1')
 app.include_router(user_router, prefix='/api/v1')
+
+origins = [
+    config.WEBHOOK_URL,
+    config.WEB_APP_URL,
+    "http://localhost",
+    "http://localhost:8080",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post(WEBHOOK_BOT_PATH)
