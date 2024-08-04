@@ -23,7 +23,6 @@ export const getProducts = createAsyncThunk('products/getProducts', async ({ tit
         'Content-Type': 'application/json',
       },
       params: {
-        title,
         page,
         size,
       },
