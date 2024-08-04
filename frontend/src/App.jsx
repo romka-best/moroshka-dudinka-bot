@@ -31,8 +31,7 @@ function App() {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
-    console.log(tg.initDataUnsafe, 'tg.initDataUnsafe')
-    // dispatch(getUser(tg.initDataUnsafe));
+    dispatch(getUser(tg.initDataUnsafe?.user?.id));
   }, []);
 
   const onClickNav = (route, ref) => {
