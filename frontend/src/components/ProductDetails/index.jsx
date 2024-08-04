@@ -14,7 +14,14 @@ const ProductDetails = ({ open, product, onClose }) => {
       placement='bottom'
       height='90%'
       closeIcon={false}
-      extra={<Button type='text' icon={<CloseOutlined/>} onClick={onClose} />}
+      extra={
+        <Button
+          className={css['ProductDetails-close']}
+          type='text'
+          icon={<CloseOutlined/>}
+          onClick={onClose}
+        />
+      }
     >
       <Carousel></Carousel>
       <p className={css['ProductDetails-price']}>{Utils.priceToRubles(product?.cost)}</p>
