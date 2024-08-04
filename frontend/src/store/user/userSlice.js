@@ -8,8 +8,8 @@ const initialState = {
 };
 
 // const API_URL = import.meta.env.VITE_API_BASE;
-const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
-// const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
+// const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
+const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
 // Асинхронный thunk для получения данных пользователя
 export const getUser = createAsyncThunk('user/Login', async (userId) => {
