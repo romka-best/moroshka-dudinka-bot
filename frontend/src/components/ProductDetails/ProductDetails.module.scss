@@ -1,0 +1,14 @@
+.ProductDetails {
+  &-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tg-theme-accent-text-color);
+    align-self: flex-start;
+    border-radius: 30px;
+
+    &::after {
+      content: '₽';
+      margin-left: 6px;
+    }
+  }
+}

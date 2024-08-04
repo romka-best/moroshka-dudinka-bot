@@ -7,12 +7,18 @@ const initialState = {
   error: null,
 };
 
-const API_URL = import.meta.env.VITE_API_BASE;
+// const API_URL = import.meta.env.VITE_API_BASE;
+const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
 // Асинхронный thunk для получения данных пользователя
-export const login = createAsyncThunk('user/Login', async () => {
-  const response = await axios.post(
-    `${API_URL}/api/auth/local`,
+export const getUser = createAsyncThunk('user/Login', async (userId) => {
+  const response = await axios.get(
+    `${API_URL}/api/v1/users/${userId}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
   );
   return response.data;
 });
@@ -23,15 +29,16 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(getUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload?.user;
+        // state.user = action.payload?.user;
+        console.log(action.payload, 'action.payload?.user')
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(getUser.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });

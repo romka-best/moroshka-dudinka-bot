@@ -1,14 +1,20 @@
 .App {
+  padding: 20px;
+  background: var(--tg-theme-secondary-bg-color);
+  min-height: calc(100vh - 90px);
+
   &-nav {
-    // height: 50px;
+    height: 90px;
     display: flex;
     border-top: 1px solid #dedede;
     justify-content: space-evenly;
     padding: 10px 10px 25px 10px;
     position: fixed;
-    background: var(--tg-theme-secondary-bg-color);
+    background: var(--tg-theme-section-bg-color);
     bottom: 0;
     width: 100%;
+    left: 0;
+    z-index: 20;
 
     &-item {
       display: flex;
@@ -16,7 +22,14 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--tg-theme-button-text-color);
+      color: var(--tg-theme-text-color);
+      opacity: .8;
+      transition: .2s opacity;
+      
+      &-active {
+        color: var(--tg-theme-accent-text-color);
+        opacity: 1;
+      }
     }
   }
 }

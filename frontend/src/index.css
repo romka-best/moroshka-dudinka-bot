@@ -9,9 +9,10 @@
 html, body {
   padding: 0;
   margin: 0;
-  background: #fff;
+  background: var(--tg-theme-header-bg-color);
 }
 
 #root {
-  min-height: 100vh;
+  min-height: 90vh;
+  padding-bottom: 90px;
 }

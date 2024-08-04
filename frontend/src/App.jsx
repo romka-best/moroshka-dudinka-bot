@@ -4,12 +4,20 @@ import { Player } from '@lordicon/react';
 import CART from './assets/cart.json';
 import CATALOG from './assets/catalog.json';
 import PROFILE from './assets/profile.json';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUser } from './store/user/userSlice';
+import classNames from 'classnames';
 
 const tg = window.Telegram.WebApp;
 
 console.log(tg)
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  
   const catalogRef = useRef(null);
   const cartRef = useRef(null);
   const profileRef = useRef(null);
@@ -17,41 +25,50 @@ function App() {
   useEffect(() => {
     tg.ready();
     tg.expand();
+    tg.disableVerticalSwipes();
+    dispatch(getUser(tg.initDataUnsafe?.query_id));
   }, []);
 
+  const onClickNav = (route, ref) => {
+    ref?.current?.playFromBeginning();
+    location.pathname !== route && navigate(route);
+    tg.HapticFeedback.impactOccurred('light');
+  };
+
   return (
-    <>
+    <div className={css['App']}>
+      <Outlet />
       <div className={css['App-nav']}>
-        <div className={css['App-nav-item']} onClick={() => catalogRef.current?.playFromBeginning()}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/products' && css['App-nav-item-active'])} onClick={() => onClickNav('/products', catalogRef)}>
           <Player
             ref={catalogRef}
             icon={CATALOG}
             size={32}
-            colorize='var(--tg-theme-button-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>каталог</p>
         </div>
-        <div className={css['App-nav-item']} onClick={() => cartRef.current?.playFromBeginning()}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/cart' && css['App-nav-item-active'])} onClick={() => onClickNav('/cart', cartRef)}>
           <Player
             ref={cartRef}
             icon={CART}
             size={32}
-            colorize='var(--tg-theme-button-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>корзина</p>
         </div>
-        <div className={css['App-nav-item']} onClick={() => profileRef.current?.playFromBeginning()}>
+        <div className={classNames(css['App-nav-item'], location.pathname === '/profile' && css['App-nav-item-active'])} onClick={() => onClickNav('/profile', profileRef)}>
           <Player
             ref={profileRef}
             icon={PROFILE}
             size={32}
-            colorize='var(--tg-theme-button-text-color)'
+            colorize='var(--tg-theme-text-color)'
           />
           <p>профиль</p>
         </div>
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
