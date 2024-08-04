@@ -27,7 +27,6 @@ export const getProducts = createAsyncThunk('products/getProducts', async ({ tit
         page,
         size,
       },
-      withCredentials: false,
     },
   );
   return response.data;
