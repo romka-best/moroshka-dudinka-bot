@@ -8,6 +8,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUser } from './store/user/userSlice';
 import classNames from 'classnames';
+import { Badge } from 'antd';
 
 const tg = window.Telegram.WebApp;
 
@@ -30,7 +31,8 @@ function App() {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
-    dispatch(getUser(tg.initDataUnsafe?.query_id));
+    console.log(tg.initDataUnsafe, 'tg.initDataUnsafe')
+    // dispatch(getUser(tg.initDataUnsafe));
   }, []);
 
   const onClickNav = (route, ref) => {
@@ -73,18 +75,21 @@ function App() {
           }
           onClick={() => onClickNav('/cart', cartRef)}
         >
-          <Player
-            ref={cartRef}
-            icon={CART}
-            size={32}
-            colorize={
-              isCartActive
-                ? 'var(--tg-theme-accent-text-color)'
-                : 'var(--tg-theme-text-color)'
-            }
-          />
+          <Badge offset={[0, 5]}>
+            <Player
+              ref={cartRef}
+              icon={CART}
+              size={32}
+              colorize={
+                isCartActive
+                  ? 'var(--tg-theme-accent-text-color)'
+                  : 'var(--tg-theme-text-color)'
+              }
+            />
+          </Badge>
           <p>корзина</p>
         </div>
+
         <div
           className={
             classNames(
@@ -107,7 +112,7 @@ function App() {
           <p>профиль</p>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

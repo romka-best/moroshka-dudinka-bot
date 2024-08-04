@@ -22,10 +22,19 @@ const ProductDetails = ({ open, product, onClose }) => {
           onClick={onClose}
         />
       }
+      footer={
+        <Button
+          className={css['ProductDetails-button']}
+          type='primary'
+          size='large'
+        >
+          Добавить в корзину
+        </Button>
+      }
     >
       <Carousel></Carousel>
-      <p className={css['ProductDetails-price']}>{Utils.priceToRubles(product?.cost)}</p>
-      <Title>{product?.title}</Title>
+      {product?.cost && <p className={css['ProductDetails-price']}>{Utils.priceToRubles(product?.cost)}</p>}
+      <Title level={2}>{product?.title}</Title>
       {product?.description && <Paragraph>{product?.description}</Paragraph>}
       {product?.composition && <Paragraph>Состав: {product?.composition}</Paragraph>}
     </Drawer>
