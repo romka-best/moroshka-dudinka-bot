@@ -7,6 +7,7 @@ import _, { isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
 import ProductDetails from '../../components/ProductDetails';
+import Utils from '../../Utils';
 
 const tg = window.Telegram.WebApp;
 
@@ -112,7 +113,7 @@ const Products = () => {
                   </Carousel>
                 </div>
                 <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
-                  <div className={css['Products-item-text-price']}>{item?.cost}</div>
+                  <div className={css['Products-item-text-price']}>{Utils.priceToRubles(item?.cost)}</div>
                   <Title level={4}>{item?.title}</Title>
                   <Paragraph ellipsis={true}>
                     {item?.description}

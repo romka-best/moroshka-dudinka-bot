@@ -11,4 +11,12 @@
       margin-left: 6px;
     }
   }
+
+  &-close {
+    color: var(--tg-theme-text-color);
+  }
+
+  &-button {
+    width: 100%;
+  }
 }

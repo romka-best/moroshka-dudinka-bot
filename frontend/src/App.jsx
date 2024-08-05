@@ -8,6 +8,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUser } from './store/user/userSlice';
 import classNames from 'classnames';
+import { Badge } from 'antd';
 
 const tg = window.Telegram.WebApp;
 
@@ -17,16 +18,20 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  
+
   const catalogRef = useRef(null);
   const cartRef = useRef(null);
   const profileRef = useRef(null);
+
+  const isCatalogActive = location.pathname === '/products';
+  const isCartActive = location.pathname === '/cart';
+  const isProfileActive = location.pathname === '/profile';
 
   useEffect(() => {
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();
-    dispatch(getUser(tg.initDataUnsafe?.query_id));
+    dispatch(getUser(tg.initDataUnsafe?.user?.id));
   }, []);
 
   const onClickNav = (route, ref) => {
@@ -39,35 +44,74 @@ function App() {
     <div className={css['App']}>
       <Outlet />
       <div className={css['App-nav']}>
-        <div className={classNames(css['App-nav-item'], location.pathname === '/products' && css['App-nav-item-active'])} onClick={() => onClickNav('/products', catalogRef)}>
+        <div
+          className={
+            classNames(
+              css['App-nav-item'],
+              isCatalogActive && css['App-nav-item-active']
+            )
+          }
+          onClick={() => onClickNav('/products', catalogRef)}
+        >
           <Player
             ref={catalogRef}
             icon={CATALOG}
             size={32}
-            colorize='var(--tg-theme-text-color)'
+            colorize={
+              isCatalogActive
+                ? 'var(--tg-theme-accent-text-color)'
+                : 'var(--tg-theme-text-color)'
+            }
           />
           <p>каталог</p>
         </div>
-        <div className={classNames(css['App-nav-item'], location.pathname === '/cart' && css['App-nav-item-active'])} onClick={() => onClickNav('/cart', cartRef)}>
-          <Player
-            ref={cartRef}
-            icon={CART}
-            size={32}
-            colorize='var(--tg-theme-text-color)'
-          />
+        <div
+          className={
+            classNames(
+              css['App-nav-item'],
+              isCartActive && css['App-nav-item-active']
+            )
+          }
+          onClick={() => onClickNav('/cart', cartRef)}
+        >
+          <Badge offset={[0, 5]}>
+            <Player
+              ref={cartRef}
+              icon={CART}
+              size={32}
+              colorize={
+                isCartActive
+                  ? 'var(--tg-theme-accent-text-color)'
+                  : 'var(--tg-theme-text-color)'
+              }
+            />
+          </Badge>
           <p>корзина</p>
         </div>
-        <div className={classNames(css['App-nav-item'], location.pathname === '/profile' && css['App-nav-item-active'])} onClick={() => onClickNav('/profile', profileRef)}>
+
+        <div
+          className={
+            classNames(
+              css['App-nav-item'],
+              isProfileActive && css['App-nav-item-active']
+            )
+          }
+          onClick={() => onClickNav('/profile', profileRef)}
+        >
           <Player
             ref={profileRef}
             icon={PROFILE}
             size={32}
-            colorize='var(--tg-theme-text-color)'
+            colorize={
+              isProfileActive
+                ? 'var(--tg-theme-accent-text-color)'
+                : 'var(--tg-theme-text-color)'
+            }
           />
           <p>профиль</p>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
