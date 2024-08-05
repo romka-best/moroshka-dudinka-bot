@@ -17,6 +17,7 @@ async def create_product_object(
     return Product(
         id=product_ref.id,
         title=title,
+        system_title=title.lower(),
         description=description,
         cost=cost,
         weight=weight,

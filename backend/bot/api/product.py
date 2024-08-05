@@ -11,7 +11,7 @@ product_router = APIRouter(
 )
 
 
-@product_router.get("/")
+@product_router.get("")
 async def get_all_products(
     title: Optional[str] = None,
     page: int = Query(0, ge=0),

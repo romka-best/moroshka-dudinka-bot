@@ -26,6 +26,7 @@ class Product(BaseModel):
 
     id: str
     title: str
+    system_title: str
     description: str
     cost: int
     weight: int
