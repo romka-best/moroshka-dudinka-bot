@@ -14,11 +14,13 @@ async def get_product(product_id: str) -> Optional[Product]:
         return Product(**product.to_dict())
 
 
-async def get_products(title=None, offset=None, limit=None) -> list[Product]:
+async def get_products(title: str = None, offset: int = None, limit: int = None) -> list[Product]:
     products_query = firebase.db.collection(Product.COLLECTION_NAME).order_by("created_at", direction=Query.ASCENDING)
 
     if title:
-        products_query = products_query.order_by("title").start_at([title]).end_at([title + '\uf8ff'])
+        products_query = products_query.order_by("system_title") \
+            .where('system_title', '>=', title.lower()) \
+            .where('system_title', '<=', title.lower() + '\uf8ff')
     if offset:
         products_query = products_query.offset(offset)
     if limit:

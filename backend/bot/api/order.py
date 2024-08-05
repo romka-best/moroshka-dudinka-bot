@@ -14,7 +14,7 @@ order_router = APIRouter(
 )
 
 
-@order_router.post("/")
+@order_router.post("")
 async def create_order(created_order: CreateOrder):
     cart = await get_cart(created_order.cart_id)
     if not cart:

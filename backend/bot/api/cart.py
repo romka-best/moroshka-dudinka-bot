@@ -45,31 +45,41 @@ async def put_item_to_cart(cart_id: str, item: CartItem):
 
     for cart_item in cart.items:
         if cart_item.product_id == item.product_id:
-            if cart_item.count <= 0:
-                cart.items = list(filter(lambda ci: ci.product_id != item.product_id, cart.items))
+            if item.count <= 0:
+                new_cart_items = list(
+                    map(
+                        lambda old_cart_item: old_cart_item.to_dict(),
+                        filter(
+                            lambda ci: ci.product_id != item.product_id,
+                            cart.items
+                        )
+                    )
+                )
                 await update_cart(cart_id, {
-                    "items": cart.items,
+                    "items": new_cart_items,
                 })
 
                 return JSONResponse(
-                    status_code=status.HTTP_204_NO_CONTENT,
+                    status_code=status.HTTP_200_OK,
                     content={"message": "Item was removed from the cart"}
                 )
             else:
                 cart_item.count = item.count
+                new_cart_items = list(map(lambda old_cart_item: old_cart_item.to_dict(), cart.items))
                 await update_cart(cart_id, {
-                    "items": cart.items,
+                    "items": new_cart_items,
                 })
 
                 return JSONResponse(
-                    status_code=status.HTTP_204_NO_CONTENT,
+                    status_code=status.HTTP_200_OK,
                     content={"message": "Count of item was changed in the cart"}
                 )
     else:
         new_cart_item = CartItem(product_id=item.product_id, count=item.count)
-        cart.items.append(new_cart_item.to_dict())
+        new_cart_items = list(map(lambda old_cart_item: old_cart_item.to_dict(), cart.items))
+        new_cart_items.append(new_cart_item.to_dict())
         await update_cart(cart_id, {
-            "items": cart.items,
+            "items": new_cart_items,
         })
 
         return JSONResponse(
