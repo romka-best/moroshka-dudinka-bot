@@ -2,6 +2,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Button, Carousel, Drawer, Typography } from 'antd';
 import Utils from '../../Utils';
 import css from './ProductDetails.module.scss';
+import ProductButton from '../ProductButton';
 
 const { Title, Paragraph } = Typography;
 
@@ -23,13 +24,10 @@ const ProductDetails = ({ open, product, onClose }) => {
         />
       }
       footer={
-        <Button
-          className={css['ProductDetails-button']}
-          type='primary'
-          size='large'
-        >
-          Добавить в корзину
-        </Button>
+        <ProductButton
+          productId={product?.id}
+          totalCount={product?.count}
+        />
       }
     >
       <Carousel></Carousel>

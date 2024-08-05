@@ -1,7 +1,7 @@
 .App {
   padding: 20px;
   background: var(--tg-theme-secondary-bg-color);
-  min-height: calc(100vh - 90px);
+  min-height: calc(var(--tg-viewport-height) - 90px);
 
   &-nav {
     height: 90px;

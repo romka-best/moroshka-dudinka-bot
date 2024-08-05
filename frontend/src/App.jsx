@@ -5,10 +5,11 @@ import CART from './assets/cart.json';
 import CATALOG from './assets/catalog.json';
 import PROFILE from './assets/profile.json';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './store/user/userSlice';
 import classNames from 'classnames';
 import { Badge } from 'antd';
+import { getCart } from './store/cart/cartSlice';
 
 const tg = window.Telegram.WebApp;
 
@@ -18,6 +19,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.user);
 
   const catalogRef = useRef(null);
   const cartRef = useRef(null);
@@ -33,6 +35,10 @@ function App() {
     tg.disableVerticalSwipes();
     dispatch(getUser(tg.initDataUnsafe?.user?.id));
   }, []);
+  
+  useEffect(() => {
+    dispatch(getCart(user?.cart?.id));
+  }, [user?.cart?.id]);
 
   const onClickNav = (route, ref) => {
     ref?.current?.playFromBeginning();
@@ -74,7 +80,7 @@ function App() {
           }
           onClick={() => onClickNav('/cart', cartRef)}
         >
-          <Badge offset={[0, 5]}>
+          <Badge count={user?.cart?.count} offset={[0, 5]}>
             <Player
               ref={cartRef}
               icon={CART}

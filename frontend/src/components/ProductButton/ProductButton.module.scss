@@ -1,0 +1,7 @@
+.ProductButton {
+  width: 100%;
+
+  &-centered {
+    width: calc(100% - 60px);
+  }
+}

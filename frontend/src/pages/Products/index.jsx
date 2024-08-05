@@ -3,11 +3,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/products/productsSlice';
 import { SearchOutlined } from '@ant-design/icons';
-import _, { isEmpty } from 'lodash';
+import _, { has, isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import css from './Products.module.scss';
 import ProductDetails from '../../components/ProductDetails';
 import Utils from '../../Utils';
+import ProductButton from '../../components/ProductButton';
 
 const tg = window.Telegram.WebApp;
 
@@ -16,6 +17,7 @@ const { Title, Paragraph } = Typography;
 const Products = () => {
   const dispatch = useDispatch();
   const { products, loading, pages, page, size, total } = useSelector(state => state.products);
+  const { cart } = useSelector(state => state.cart);
   const [search, setSearch] = useState('');
   const [details, setDetails] = useState({
     product: {},
@@ -41,10 +43,6 @@ const Products = () => {
     if (loading) return
 
     dispatch(getProducts({ title: search, page: page + 1 }));
-  };
-
-  const onAddCart = () => {
-    tg.HapticFeedback.impactOccurred('medium');
   };
 
   const handleOpenDetails = (product) => {
@@ -119,13 +117,10 @@ const Products = () => {
                     {item?.description}
                   </Paragraph>
                 </Flex>
-                <Button
-                  type='primary'
-                  size='large'
-                  onClick={onAddCart}
-                >
-                  В корзину
-                </Button>
+                <ProductButton
+                  productId={item?.id}
+                  totalCount={item?.count}
+                />
               </Flex>
             )}
           />

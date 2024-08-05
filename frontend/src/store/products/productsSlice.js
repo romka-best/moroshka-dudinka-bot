@@ -15,7 +15,7 @@ const initialState = {
 const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 // const API_URL = 'https://cors-anywhere.herokuapp.com/https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
-export const getProducts = createAsyncThunk('products/getProducts', async ({ title = '', page = 0, size = 20 }) => {
+export const getProducts = createAsyncThunk('products/getProducts', async ({ title, page = 0, size = 20 }) => {
   const response = await axios.get(
     `${API_URL}/api/v1/products`,
     {
@@ -23,6 +23,7 @@ export const getProducts = createAsyncThunk('products/getProducts', async ({ tit
         'Content-Type': 'application/json',
       },
       params: {
+        title,
         page,
         size,
       },

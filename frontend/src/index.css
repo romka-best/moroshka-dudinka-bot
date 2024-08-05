@@ -13,6 +13,6 @@ html, body {
 }
 
 #root {
-  min-height: 90vh;
+  min-height: var(--tg-viewport-height);
   padding-bottom: 90px;
 }
