@@ -6,6 +6,7 @@ import css from './ProductButton.module.scss';
 import { editCart } from '../../store/cart/cartSlice';
 import { find } from 'lodash';
 import { useMemo } from 'react';
+import { HappyProvider } from '@ant-design/happy-work-theme';
 
 const ProductButton = ({ productId, totalCount }) => {
   const dispatch = useDispatch();
@@ -17,17 +18,17 @@ const ProductButton = ({ productId, totalCount }) => {
   const onCartAdd = () => {
     dispatch(editCart({ cartId, count: 1, productId }));
   };
-  
+
   const onCartEdit = (action) => {
     switch (action) {
       case 'plus':
         dispatch(editCart({ cartId, count: productInCart?.count + 1, productId }));
         break;
-    
+
       case 'minus':
         dispatch(editCart({ cartId, count: productInCart?.count - 1, productId }));
         break;
-    
+
       default:
         break;
     };
@@ -36,12 +37,16 @@ const ProductButton = ({ productId, totalCount }) => {
   const buttons = useMemo(() => {
     switch (true) {
       case (productInCart?.count === 0 && !!totalCount):
-        return <Button onClick={onCartAdd} className={css['ProductButton']} type='primary' size='large'>Добавить в корзину</Button>
-  
+        return (
+          <Button onClick={onCartAdd} className={css['ProductButton']} type='primary' size='large'>
+            Добавить в корзину
+          </Button>
+        )
+
       case (!totalCount):
         return <Button className={css['ProductButton']} type='primary' disabled size='large'>Нет в наличии</Button>
-  
-      case (!!productInCart?.count):
+
+      case (true):
         return (
           <Flex gap={10}>
             <Button type='primary' size='large' onClick={() => onCartEdit('minus')} icon={<MinusOutlined />} />

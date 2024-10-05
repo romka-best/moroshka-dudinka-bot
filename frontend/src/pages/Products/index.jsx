@@ -1,4 +1,4 @@
-import { Button, Carousel, Flex, Input, List, Skeleton, Spin, Typography } from 'antd';
+import { Button, Carousel, Divider, Flex, Input, List, Skeleton, Spin, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/products/productsSlice';
@@ -62,32 +62,25 @@ const Products = () => {
 
   return (
     <div>
-      <Title>Каталог</Title>
-      <Input
-        placeholder='Поиск по товарам'
-        suffix={<SearchOutlined />}
-        onChange={onSearchProduct}
-        size='large'
-        variant='filled'
-        value={search}
-        allowClear
-      />
-      <div
-        id='scrollableDiv'
-        className={css['Products-container']}
-      >
-        <Spin
-          spinning={isEmpty(products) && loading}
-          fullscreen
-          size='large'
+      <div className={css['Products-header']}>
+        <Title>Каталог</Title>
+        <Input
+          placeholder="Поиск по товарам"
+          suffix={<SearchOutlined />}
+          onChange={onSearchProduct}
+          size="large"
+          value={search}
+          allowClear
         />
+      </div>
+      <div id="scrollableDiv" className={css['Products-container']}>
+        <Spin spinning={isEmpty(products) && loading} fullscreen size="large" />
         <InfiniteScroll
-          dataLength={total}
+          dataLength={products.length}
           next={loadMoreData}
-          hasMore={pages >= page}
-          loader={loading && <Spin spinning size='large' />}
-          // endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-          scrollableTarget='scrollableDiv'
+          hasMore={page < pages}
+          endMessage={<Divider plain></Divider>}
+          scrollableTarget="scrollableDiv"
         >
           <List
             dataSource={products}
@@ -95,7 +88,7 @@ const Products = () => {
             renderItem={(item) => (
               <Flex key={item?.id} className={css['Products-item']} vertical>
                 <div onClick={() => handleOpenDetails(item)}>
-                  <Carousel draggable onSwipe={e => e.preventDefault()}>
+                  <Carousel draggable>
                     <div className={css['Products-item-img']}>
                       <h3>ТОРТ</h3>
                     </div>
@@ -111,26 +104,19 @@ const Products = () => {
                   </Carousel>
                 </div>
                 <Flex className={css['Products-item-text']} vertical onClick={() => handleOpenDetails(item)}>
-                  <div className={css['Products-item-text-price']}>{Utils.priceToRubles(item?.cost)}</div>
+                  <div className={css['Products-item-text-price']}>
+                    {item?.cost ? Utils.priceToRubles(item.cost) : ''}
+                  </div>
                   <Title level={4}>{item?.title}</Title>
-                  <Paragraph ellipsis={true}>
-                    {item?.description}
-                  </Paragraph>
+                  <Paragraph ellipsis>{item?.description}</Paragraph>
                 </Flex>
-                <ProductButton
-                  productId={item?.id}
-                  totalCount={item?.count}
-                />
+                <ProductButton productId={item?.id} totalCount={item?.count} />
               </Flex>
             )}
           />
         </InfiniteScroll>
       </div>
-      <ProductDetails
-        open={details.open}
-        product={details.product}
-        onClose={handleCloseDetails}
-      />
+      <ProductDetails open={details.open} product={details.product} onClose={handleCloseDetails} />
     </div>
   );
 };

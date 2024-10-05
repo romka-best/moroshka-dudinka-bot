@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  cart: null,
+  cart: [],
   cartId: null,
   loading: false,
   error: null,
@@ -14,7 +14,7 @@ const API_URL = 'https://moroshka-dudinka-bot-test-jmwcc4rfzq-ez.a.run.app';
 
 const testCartId = 'r8iCU4nURnbGF34bDnWS';
 
-export const getCart = createAsyncThunk('cart/getCart', async (cartId) => {
+export const getCart = createAsyncThunk('cart/getCart', async (cartId = testCartId) => {
   const response = await axios.get(
     `${API_URL}/api/v1/carts/${cartId}`,
     {

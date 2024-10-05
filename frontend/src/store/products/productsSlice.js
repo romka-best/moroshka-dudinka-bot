@@ -44,7 +44,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload?.items;
+        state.products = [...state.products, ...action.payload?.items];
         state.pages = action.payload?.pages;
         state.page = action.payload?.page;
         state.size = action.payload?.size;

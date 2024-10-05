@@ -1,6 +1,12 @@
 .Products {
   &-container {
     overflow: auto;
+    height: calc(100dvh - 120px - 20px - 90px);
+  }
+
+  &-header {
+    height: 120px;
+    background: var(--tg-theme-secondary-bg-color);
   }
 
   &-item {
@@ -33,7 +39,7 @@
     }
 
     &-img {
-      height: 200px;
+      height: 400px;
       background-color: #b74e4e;
       // border-radius: 8px;
     }
