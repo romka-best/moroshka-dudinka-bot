@@ -10,13 +10,13 @@ const ProductInfo = ({ product, visible, onClose }) => {
     if (Array.isArray(product?.photos) && product?.photos.length > 0) {
       return product.photos.map(photo => (
         <SwiperItem key={photo}>
-          <Image src={photo} height='100%' />
+          <Image src={photo} height='100%' fit='contain' />
         </SwiperItem>
       ));
     } else {
       return (
         <SwiperItem>
-          <Image src='/404' height='100%' />
+          <Image src='/404' height='100%' fit='contain' />
         </SwiperItem>
       )
     }
