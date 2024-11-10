@@ -1,12 +1,10 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import productsSlice from './products/productsSlice';
-import userSlice from './user/userSlice';
-import cartSlice from './cart/cartSlice';
+import { combineReducers } from 'redux';
+import { userReducer } from './user/reducer';
+import { productReducer } from './products/reducer';
 
 const rootReducer = combineReducers({
-  user: userSlice,
-  products: productsSlice,
-  cart: cartSlice,
+  user: userReducer,
+  products: productReducer,
 });
 
 export default rootReducer;

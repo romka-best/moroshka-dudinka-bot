@@ -1,46 +1,49 @@
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import './index.css';
-import ruRU from 'antd/es/locale/ru_RU';
-import { ConfigProvider, App } from 'antd';
+import App from './App.jsx';
 import { Provider } from 'react-redux';
-import store from './store';
-import Router from './router/Router.jsx';
+import store from './store/store';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Catalog from './pages/Catalog/index.jsx';
+import { ConfigProvider } from 'antd-mobile';
+import ruRU from 'antd-mobile/es/locales/ru-RU';
+import Cart from './pages/Cart/index.jsx';
+import Profile from './pages/Profile/index.jsx';
+import Category from './pages/Category/index.jsx';
 
-const tg = window.Telegram.WebApp;
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        element: <Catalog />,
+        index: true,
+      },
+      {
+        path: 'catalog',
+        element: <Catalog />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+      {
+        path: 'category/:id/:name',
+        element: <Category />,
+      },
+    ]
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <ConfigProvider
-      locale={ruRU}
-      theme={{
-        "token": {
-          "colorPrimary": tg?.themeParams?.bg_color ?? '#DE3163',
-          "colorTextBase": tg?.themeParams?.text_color ?? '#000',
-        },
-        "components": {
-          "Button": {
-            "defaultShadow": "",
-            "primaryShadow": "",
-            "dangerShadow": "",
-            "colorPrimary": tg?.themeParams?.button_color ?? '#DE3163',
-            "colorText": tg?.themeParams?.button_text_color ?? '#000',
-            "algorithm": true
-          },
-          "Input": {
-            "algorithm": true,
-            "colorBgContainer": tg?.themeParams?.bg_color ?? '#FFF',
-            "activeBg": tg.themeParams?.bg_color ?? '#FFF',
-            "activeBorderColor": tg.themeParams?.button_color ?? '#DE3163',
-          },
-          "Drawer": {
-            "colorBgElevated": tg.themeParams?.bg_color ?? '#FFF',
-          }
-        }
-      }}
-    >
-      <App>
-        <Router />
-      </App>
+    <ConfigProvider locale={ruRU}>
+      <RouterProvider router={router} />
     </ConfigProvider>
   </Provider>,
-);
+)
