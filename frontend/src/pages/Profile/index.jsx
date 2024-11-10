@@ -1,13 +1,5 @@
-import { Typography } from 'antd';
-
-const { Title } = Typography;
-
 const Profile = () => {
-  return (
-    <div>
-      <Title>Профиль</Title>
-    </div>
-  );
+  return <div>Profile</div>;
 };
 
 export default Profile;

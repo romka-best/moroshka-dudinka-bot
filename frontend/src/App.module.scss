@@ -1,35 +1,24 @@
 .App {
-  padding: 20px 20px 0 20px;
-  background: var(--tg-theme-secondary-bg-color);
-  min-height: calc(var(--tg-viewport-height) - 90px);
+  height: var(--tg-viewport-height);
+  display: flex;
+  flex-direction: column;
+  // Высота навбара, чтобы он не перекрывал контент
+  padding-bottom: 56px;
+}
 
-  &-nav {
-    height: 90px;
-    display: flex;
-    border-top: 1px solid #dedede;
-    justify-content: space-evenly;
-    padding: 10px 10px 25px 10px;
-    position: fixed;
-    background: var(--tg-theme-section-bg-color);
-    bottom: 0;
-    width: 100%;
-    left: 0;
-    z-index: 20;
+.App-body {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 56px;
+  /* overflow-y: auto; */
+}
 
-    &-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--tg-theme-text-color);
-      opacity: .8;
-      transition: .2s opacity;
-      
-      &-active {
-        color: var(--tg-theme-accent-text-color);
-        opacity: 1;
-      }
-    }
-  }
+.App-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  border-top: solid 1px var(--adm-color-border);
+  background-color: #fff; 
 }
