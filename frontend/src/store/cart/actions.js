@@ -9,7 +9,7 @@ import {
   EDIT_CART_ITEM_START,
   EDIT_CART_ITEM_SUCCESS,
   EDIT_CART_ITEM_FAIL,
-  INITIAL_CART,
+  EDIT_CART_ITEM_COUNT,
 } from './constants';
 
 export const getCartById = cartId => ({
@@ -36,7 +36,8 @@ export const editCartItem = (cartId, product_id, count) => ({
   count
 });
 
-export const initialCart = cartData => ({
-  type: INITIAL_CART,
-  cartData
+export const editCartItemCount = (count, product_id) => ({
+  type: EDIT_CART_ITEM_COUNT,
+  product_id,
+  count
 });

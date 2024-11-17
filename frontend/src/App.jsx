@@ -10,7 +10,8 @@ import CatalogIcon from './assets/catalog.json';
 import CartIcon from './assets/cart.json';
 import ProfileIcon from './assets/profile.json';
 import { selectUser } from './store/user/selector';
-import { initialCart } from './store/cart/actions';
+import { getCartById } from './store/cart/actions';
+import { selectCart } from './store/cart/selector';
 
 const tg = window.Telegram.WebApp;
 
@@ -27,6 +28,7 @@ function App() {
 
   const dispatch = useDispatch();
   const { user } = useSelector(selectUser);
+  const { count } = useSelector(selectCart);
 
   useLayoutEffect(() => {
     tg.ready();
@@ -36,7 +38,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    user?.cart && dispatch(initialCart(user?.cart));
+    user?.cart?.id && dispatch(getCartById(user?.cart?.id));
   }, [user?.cart]);
 
   const getTabColor = (tabPathname) => {
@@ -51,12 +53,12 @@ function App() {
     }
   };
 
-  const tabs = [
+  const tabs = useMemo(() => ([
     {
       key: '/catalog',
       title: 'Каталог',
       icon: (
-        <Player 
+        <Player
           icon={CatalogIcon}
           ref={catalogRef}
           colorize={getTabColor('/catalog')}
@@ -67,29 +69,30 @@ function App() {
       key: '/cart',
       title: 'Корзина',
       icon: (
-        <Player 
+        <Player
           icon={CartIcon}
           ref={cartRef}
-          colorize={getTabColor('/cart')} 
+          colorize={getTabColor('/cart')}
         />
-      )
+      ),
+      badge: count,
     },
     {
       key: '/profile',
       title: 'Профиль',
       icon: (
-        <Player 
+        <Player
           icon={ProfileIcon}
           ref={profileRef}
-          colorize={getTabColor('/profile')} 
+          colorize={getTabColor('/profile')}
         />
       )
     },
-  ];
+  ]), [count, getTabColor, profileRef, cartRef, catalogRef]);
 
   const tabsItems = useMemo(() => (
-    tabs?.map(tab => <TabItem key={tab.key} icon={tab.icon} title={tab.title} />)
-  ), [tabs]);
+    tabs?.map(tab => <TabItem key={tab.key} icon={tab.icon} title={tab.title} badge={tab?.badge} />)
+  ), [tabs, count]);
 
   const handleChangeTab = (route) => {
     navigate(route);
@@ -106,7 +109,7 @@ function App() {
       case '/profile':
         profileRef.current?.playFromBeginning();
         break;
-    
+
       default:
         break;
     }

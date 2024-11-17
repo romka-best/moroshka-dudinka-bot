@@ -15,8 +15,6 @@ export const userReducer = (state = initialState, { type, response }) => {
       });
 
     case GET_USER_SUCCESS:
-      console.log(response, 'response');
-
       return ({
         ...state,
         loading: false,

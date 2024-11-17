@@ -39,13 +39,14 @@ const Category = () => {
   ), [products]);
 
   const handleLoadMore = async () => {    
+    
     if (!loadingMore) {
       await dispatch(getMoreProducts(productsPagination?.page + 1, search));
     }
   };
-
+  
   const hasMore = productsPagination?.page < productsPagination?.pages;
-
+  
   const searchBarPlaceholder = params.id === 'ALL' ? 'Поиск' : `Поиск по категории ${params?.name.toLowerCase()}`;
 
   const handleChangeSearch = Utils.debounce(title => {
