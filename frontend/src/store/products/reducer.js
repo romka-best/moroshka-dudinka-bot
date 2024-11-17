@@ -80,7 +80,7 @@ export const productReducer = (state = initialState, { type, response }) => {
         products: [...state.products, ...response.items],
         productsPagination: {
           ...state.productsPagination,
-          page: state.productsPagination + 1,
+          page: state.productsPagination?.page + 1,
         }
       });
 

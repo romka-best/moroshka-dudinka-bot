@@ -94,7 +94,15 @@ const Cart = () => {
                 onClick={() => onClickProduct(item?.product)}
               />
             }
-            extra={<Stepper min={0} max={item?.product?.count} defaultValue={item?.count} onChange={(count) => handleChangeCount(item?.product?.id, count)} />}
+            extra={
+              <Stepper
+                min={0}
+                max={item?.product?.count}
+                defaultValue={item?.count}
+                onChange={(count) => handleChangeCount(item?.product?.id, count)}
+                inputReadOnly
+              />
+            }
           >
             <div onClick={() => onClickProduct(item?.product)}>
               <Ellipsis content={item?.product?.title} rows={1} />
@@ -110,6 +118,13 @@ const Cart = () => {
       return <></>;
     }
   }, [cart, isCartEmpty]);
+
+  const cartSum = useMemo(() => {
+    return cart.reduce((total, item) => {
+      const itemTotal = item.product.cost * item.count;
+      return total + itemTotal;
+    }, 0);
+  }, [cart]);
 
   return (
     <div className={css['Cart']}>
@@ -134,9 +149,20 @@ const Cart = () => {
 
             {(Array.isArray(cart) && cart.length > 0)
               ? (
-                <List>
-                  {renderCartItems}
-                </List>
+                <>
+                  <List className={css['Cart-main-list']}>
+                    {renderCartItems}
+                  </List>
+                  <footer className={css['Cart-footer']}>
+                    <div className={css['Cart-footer-sum-wrapper']}>
+                      <p>Итого:</p>
+                      <p className={css['Cart-footer-sum']}>
+                        {Utils.formatPrice(cartSum)}
+                      </p>
+                    </div>
+                    <Button block color='primary'>Оформить заказ</Button>
+                  </footer>
+                </>
               )
               : (
                 <div className={css['Cart-empty-wrapper']}>

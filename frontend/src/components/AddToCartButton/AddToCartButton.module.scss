@@ -1,0 +1,26 @@
+.AddToCartButton {
+  &-stepper {
+    width: 100%;
+    max-width: 284px;
+
+    --border-radius: 8px;
+    --button-background-color: var(--adm-color-primary);
+    --button-text-color: var(--adm-color-white);
+    --button-width: 40px;
+    --height: 29px;
+
+    &-middle {
+      --height: 40px;
+      max-width: 150px;
+    }
+  }
+
+  &-button {
+    --border-radius: 8px;
+
+    &-middle {
+      max-width: 150px;
+      width: 100%;
+    }
+  }
+}

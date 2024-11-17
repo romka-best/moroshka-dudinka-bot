@@ -29,7 +29,7 @@ const Catalog = () => {
 
   return (
     <div>
-      <h1>Каталог</h1>
+      <h1 className={css['Catalog-title']}>Каталог</h1>
       <div className={css['Catalog-container']}>
         <Grid columns={2} gap={10}>
           <Grid.Item>

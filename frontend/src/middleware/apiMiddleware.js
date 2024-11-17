@@ -3,10 +3,6 @@ import axios from 'axios';
 const apiMiddleware = ({ dispatch }) => next => action => {
   const { method, url, params, headers = {}, types, body, onSuccess, onError, ...rest } = action;
 
-  // if (!!type) {
-  //   dispatch({ type });
-  // }
-
   // Если метод не определен, это не наш специфичный API-запрос, передаем действие дальше
   if (!method) {
     return next(action);

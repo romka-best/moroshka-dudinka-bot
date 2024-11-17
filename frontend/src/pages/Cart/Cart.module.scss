@@ -6,12 +6,34 @@
       justify-content: center;
       margin: 20px 0;
     }
+
+    &-list {
+      margin-bottom: 120px;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    gap: 20px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 16px 16px calc(56px + 16px) 16px;
+    border-radius: 16px 16px 0 0;
+    background: #fff;
+    border-top: 1px solid var(--adm-color-border);
+
+    &-sum {
+      font-weight: 600;
+      font-size: 18px;
+    }
   }
   
   &-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 16px;
   }
 
