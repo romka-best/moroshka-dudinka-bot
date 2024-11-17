@@ -4,8 +4,8 @@ const initialState = {
   loading: false,
 };
 
-export const userReducer = (state = initialState, action) => {
-  switch (action.type) {
+export const userReducer = (state = initialState, { type, response }) => {
+  switch (type) {
     case GET_USER_FAIL:
     case GET_USER_START:
       return ({
@@ -14,6 +14,8 @@ export const userReducer = (state = initialState, action) => {
       });
 
     case GET_USER_SUCCESS:
+      console.log(response, 'response');
+
       return ({
         ...state,
         loading: false,

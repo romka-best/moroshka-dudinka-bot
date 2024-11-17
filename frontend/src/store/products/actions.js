@@ -17,17 +17,23 @@ export const getProductsTypes = () => ({
   types: [GET_PRODUCT_TYPES_START, GET_PRODUCT_TYPES_SUCCESS, GET_PRODUCT_TYPES_FAIL],
 });
 
-export const getProducts = () => ({
+export const getProducts = (title, type) => ({
   method: GET,
   url: `${API_BASE}/products`,
+  params: {
+    title,
+    type,
+  },
   types: [GET_PRODUCT_START, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAIL],
 });
 
-export const getMoreProducts = (page) => ({
+export const getMoreProducts = (page, title, type) => ({
   method: GET,
   url: `${API_BASE}/products`,
   params: {
     page,
+    title,
+    type,
   },
   types: [GET_MORE_PRODUCTS_START, GET_MORE_PRODUCTS_SUCCESS, GET_MORE_PRODUCTS_FAIL],
 });

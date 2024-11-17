@@ -1,0 +1,1 @@
+export const selectCart = select => select.cart;

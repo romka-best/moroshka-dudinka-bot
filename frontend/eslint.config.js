@@ -34,7 +34,8 @@ export default [
         { allowConstantExport: true },
       ],
       'react-hooks/exhaustive-deps': 'off',
-      'no-case-declarations': 'off'
+      'no-case-declarations': 'off',
+      'quotes': ['error', 'single'],
     },
   },
 ]
