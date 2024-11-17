@@ -25,7 +25,6 @@ const initialState = {
 
 export const productReducer = (state = initialState, { type, response }) => {
   switch (type) {
-    case GET_PRODUCT_START:
     case GET_PRODUCT_TYPES_START:
       return ({
         ...state,
@@ -45,6 +44,13 @@ export const productReducer = (state = initialState, { type, response }) => {
         ...state,
         loading: false,
       });
+
+    case GET_PRODUCT_START:
+      return ({
+        ...state,
+        loading: true,
+        products: [],
+      });
     
     case GET_PRODUCT_SUCCESS:
       const { page, pages, size, total } = response;
@@ -52,7 +58,7 @@ export const productReducer = (state = initialState, { type, response }) => {
       return {
         ...state,
         loading: false,
-        products: response?.items,
+        products: response?.items ?? [],
         productsPagination: {
           page,
           pages,

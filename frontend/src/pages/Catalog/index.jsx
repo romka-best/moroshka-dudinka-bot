@@ -1,10 +1,10 @@
-import { useLayoutEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductsTypes } from "../../store/products/actions";
-import { selectProducts } from "../../store/products/selector";
-import CategoryItem from "../../components/CategoryItem";
+import { useLayoutEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsTypes } from '../../store/products/actions';
+import { selectProducts } from '../../store/products/selector';
+import CategoryItem from '../../components/CategoryItem';
 import css from './Catalog.module.scss';
-import { Grid } from "antd-mobile";
+import { Grid } from 'antd-mobile';
 
 const ALL_PRODUCTS_CATEGORY = {
   name: 'Все товары',

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiMiddleware = ({ dispatch }) => next => action => {
-  const { method, url, params, headers = {}, types, body, onSuccess, onError } = action;
+  const { method, url, params, headers = {}, types, body, onSuccess, onError, ...rest } = action;
 
   // Если метод не определен, это не наш специфичный API-запрос, передаем действие дальше
   if (!method) {
@@ -32,6 +32,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       dispatch({
         type: SUCCESS,
         response: response.data,
+        ...rest,
       });
 
       if (onSuccess) {
