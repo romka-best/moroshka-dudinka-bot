@@ -3,11 +3,16 @@ import { Button, Collapse, Ellipsis, Image, ImageViewer, Popup, Swiper } from 'a
 import css from './ProductInfo.module.scss';
 import React, { useEffect, useMemo, useRef } from 'react';
 import Utils from '../../Utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { editCartItem } from '../../store/cart/actions';
+import { selectCart } from '../../store/cart/selector';
 
 const { Item: SwiperItem } = Swiper;
 const { Panel: CollapsePanel } = Collapse;
 
 const ProductInfo = ({ product, visible, onClose }) => {
+  const dispatch = useDispatch();
+  const { cartId } = useSelector(selectCart);
   const swiperRef = useRef(null);
 
   const previewImage = (index) => {
@@ -38,6 +43,8 @@ const ProductInfo = ({ product, visible, onClose }) => {
   }, [visible]);
 
   const isHasIndicator = useMemo(() => Array.isArray(product?.photos) && product?.photos?.length > 1, [product?.photos]);
+
+  const handleAddInCartTEST = () => dispatch(editCartItem(cartId, product?.id, 1));
 
   return (
     <>
@@ -103,7 +110,7 @@ const ProductInfo = ({ product, visible, onClose }) => {
             <h3 className={css['ProductInfo-footer-cost']}>
               {Utils.formatPrice(product?.cost)}
             </h3>
-            <Button color='primary'>
+            <Button color='primary' onClick={handleAddInCartTEST}>
               В корзину
             </Button>
           </footer>

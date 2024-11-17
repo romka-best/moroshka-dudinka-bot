@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { getUser } from './store/user/actions';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { TabBar } from 'antd-mobile';
@@ -9,6 +9,8 @@ import { Player } from '@lordicon/react';
 import CatalogIcon from './assets/catalog.json';
 import CartIcon from './assets/cart.json';
 import ProfileIcon from './assets/profile.json';
+import { selectUser } from './store/user/selector';
+import { initialCart } from './store/cart/actions';
 
 const tg = window.Telegram.WebApp;
 
@@ -24,6 +26,7 @@ function App() {
   const profileRef = useRef(null);
 
   const dispatch = useDispatch();
+  const { user } = useSelector(selectUser);
 
   useLayoutEffect(() => {
     tg.ready();
@@ -31,6 +34,10 @@ function App() {
     tg.disableVerticalSwipes();
     dispatch(getUser(tg.initDataUnsafe?.user?.id));
   }, []);
+
+  useEffect(() => {
+    user?.cart && dispatch(initialCart(user?.cart));
+  }, [user?.cart]);
 
   const getTabColor = (tabPathname) => {
     if (tabPathname === '/catalog' && location?.pathname === '/') {

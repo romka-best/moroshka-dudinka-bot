@@ -8,14 +8,16 @@ import {
   EDIT_CART_ITEM_START,
   EDIT_CART_ITEM_SUCCESS,
   EDIT_CART_ITEM_FAIL,
+  INITIAL_CART,
 } from './constants';
 
 const initialState = {
   loading: true,
   cart: [],
+  cartId: null,
 };
 
-export const cartReducer = (state = initialState, { type, response, count, product_id }) => {
+export const cartReducer = (state = initialState, { type, response, count, product_id, cartData }) => {
   switch (type) {
     case GET_CART_BY_ID_FAIL:
     case GET_CART_BY_ID_START:
@@ -67,6 +69,12 @@ export const cartReducer = (state = initialState, { type, response, count, produ
         loading: false,
         cart: [],
       });
+
+    case INITIAL_CART:
+      return ({
+        ...state,
+        cartId: cartData?.id
+      })
 
     default:
       return state;

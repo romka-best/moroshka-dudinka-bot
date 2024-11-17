@@ -13,12 +13,10 @@ import ProductInfo from '../../components/ProductInfo';
 
 const { Item: ListItem } = List;
 
-const cartId = 'r8iCU4nURnbGF34bDnWS';
-
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cart, loading } = useSelector(selectCart);
+  const { cart, loading, cartId } = useSelector(selectCart);
   const [infoVisible, setInfoVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
 
