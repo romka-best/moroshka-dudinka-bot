@@ -9,16 +9,16 @@ from bot.database.operations.cart.updaters import update_cart
 from bot.database.operations.product.getters import get_product
 
 cart_router = APIRouter(
-    prefix="/carts",
-    tags=["cart"],
+    prefix='/carts',
+    tags=['cart'],
 )
 
 
-@cart_router.get("/{cart_id}")
+@cart_router.get('/{cart_id}')
 async def get_cart_by_id(cart_id: str):
     cart = await get_cart(cart_id)
     if not cart:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cart not found')
 
     products = await asyncio.gather(*[
         get_product(cart_item.product_id) for cart_item in cart.items
@@ -26,22 +26,22 @@ async def get_cart_by_id(cart_id: str):
 
     items = [
         {
-            "product": product.to_dict(),
-            "count": cart_item.count
+            'product': product.to_dict(),
+            'count': cart_item.count
         } for product, cart_item in zip(products, cart.items)
     ]
 
     return {
-        "id": cart.id,
-        "items": items,
+        'id': cart.id,
+        'items': items,
     }
 
 
-@cart_router.put("/{cart_id}")
+@cart_router.put('/{cart_id}')
 async def put_item_to_cart(cart_id: str, item: CartItem):
     cart = await get_cart(cart_id)
     if not cart:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cart not found')
 
     for cart_item in cart.items:
         if cart_item.product_id == item.product_id:
@@ -56,50 +56,50 @@ async def put_item_to_cart(cart_id: str, item: CartItem):
                     )
                 )
                 await update_cart(cart_id, {
-                    "items": new_cart_items,
+                    'items': new_cart_items,
                 })
 
                 return JSONResponse(
                     status_code=status.HTTP_200_OK,
-                    content={"message": "Item was removed from the cart"}
+                    content={'message': 'Item was removed from the cart'}
                 )
             else:
                 cart_item.count = item.count
                 new_cart_items = list(map(lambda old_cart_item: old_cart_item.to_dict(), cart.items))
                 await update_cart(cart_id, {
-                    "items": new_cart_items,
+                    'items': new_cart_items,
                 })
 
                 return JSONResponse(
                     status_code=status.HTTP_200_OK,
-                    content={"message": "Count of item was changed in the cart"}
+                    content={'message': 'Count of item was changed in the cart'}
                 )
     else:
         new_cart_item = CartItem(product_id=item.product_id, count=item.count)
         new_cart_items = list(map(lambda old_cart_item: old_cart_item.to_dict(), cart.items))
         new_cart_items.append(new_cart_item.to_dict())
         await update_cart(cart_id, {
-            "items": new_cart_items,
+            'items': new_cart_items,
         })
 
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
-            content={"message": "Item was added to the cart"}
+            content={'message': 'Item was added to the cart'}
         )
 
 
-@cart_router.delete("/{cart_id}")
+@cart_router.delete('/{cart_id}')
 async def clear_cart(cart_id: str):
     cart = await get_cart(cart_id)
     if not cart:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cart not found')
 
     cart.items = []
     await update_cart(cart_id, {
-        "items": cart.items,
+        'items': cart.items,
     })
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,
-        content={"message": "All items were removed from the cart"}
+        content={'message': 'All items were removed from the cart'}
     )

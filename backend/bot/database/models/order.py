@@ -26,7 +26,7 @@ class OrderItem(BaseModel):
 
 
 class Order(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "orders"
+    COLLECTION_NAME: ClassVar[str] = 'orders'
 
     id: str
     user_id: str

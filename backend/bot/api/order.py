@@ -9,16 +9,18 @@ from bot.database.operations.product.getters import get_product
 from bot.helpers.initializers.initialize_order import initialize_order
 
 order_router = APIRouter(
-    prefix="/orders",
-    tags=["order"],
+    prefix='/orders',
+    tags=['order'],
 )
 
 
-@order_router.post("")
+@order_router.post('')
 async def create_order(created_order: CreateOrder):
     cart = await get_cart(created_order.cart_id)
     if not cart:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cart not found')
+    if len(cart.items) == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cart is empty')
 
     items = []
     for cart_item in cart.items:
@@ -29,20 +31,20 @@ async def create_order(created_order: CreateOrder):
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
-        content={"message": "Order was placed"}
+        content={'message': 'Order was placed'}
     )
 
 
-@order_router.get("/{order_id}")
+@order_router.get('/{order_id}')
 async def get_order_by_id(order_id: str):
     order = await get_order(order_id)
     if not order:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Order not found')
 
-    products = [product.to_dict() for product in order.products]
+    products = [product.to_dict() for product in order.items]
     return {
-        "id": order.id,
-        "user_id": order.user_id,
-        "items": products,
-        "status": order.status,
+        'id': order.id,
+        'user_id': order.user_id,
+        'items': products,
+        'status': order.status,
     }

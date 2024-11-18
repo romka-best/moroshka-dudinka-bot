@@ -24,7 +24,7 @@ async def get_orders() -> list[Order]:
 
 async def get_orders_by_user_id(user_id: str) -> Optional[Order]:
     order_stream = firebase.db.collection(Order.COLLECTION_NAME) \
-        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter('user_id', '==', user_id)) \
         .limit(1) \
         .stream()
 

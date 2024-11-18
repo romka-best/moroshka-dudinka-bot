@@ -32,8 +32,8 @@ async def write_product(
     return product
 
 
-async def write_product_type(name: str) -> ProductType:
-    product_type = await create_product_type_object(name)
+async def write_product_type(name: str, icon: str) -> ProductType:
+    product_type = await create_product_type_object(name, icon)
     await firebase.db.collection(ProductType.COLLECTION_NAME).document(product_type.id).set(
         product_type.to_dict()
     )
