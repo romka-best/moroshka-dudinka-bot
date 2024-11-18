@@ -24,7 +24,7 @@ async def get_products(title: str = None, type_id: str = None, offset: int = Non
             .where('system_title', '>=', title.lower()) \
             .where('system_title', '<=', title.lower() + '\uf8ff')
     if type_id:
-        products_query.where('type_ids', 'array_contains', type_id)
+        products_query = products_query.where('type_ids', 'array_contains', type_id)
     if offset:
         products_query = products_query.offset(offset)
     if limit:
