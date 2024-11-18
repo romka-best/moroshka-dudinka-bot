@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from bot.database.main import firebase
 from bot.database.models.order import CreateOrder, OrderItem
 from bot.database.operations.cart.getters import get_cart
-from bot.database.operations.order.getters import get_order
+from bot.database.operations.order.getters import get_order, get_orders_by_user_id
 from bot.database.operations.product.getters import get_product
 from bot.helpers.initializers.initialize_order import initialize_order
 
@@ -41,10 +41,27 @@ async def get_order_by_id(order_id: str):
     if not order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Order not found')
 
-    products = [product.to_dict() for product in order.items]
+    items = [item.to_dict() for item in order.items]
     return {
         'id': order.id,
         'user_id': order.user_id,
-        'items': products,
+        'items': items,
         'status': order.status,
     }
+
+
+@order_router.get('/users/{user_id}')
+async def get_user_orders_by_user_id(user_id: str):
+    orders = await get_orders_by_user_id(user_id)
+
+    result = []
+    for order in orders:
+        items = [item.to_dict() for item in order.items]
+        result.append({
+            'id': order.id,
+            'status': order.status,
+            'items': items,
+            'created_at': order.created_at,
+        })
+
+    return result
