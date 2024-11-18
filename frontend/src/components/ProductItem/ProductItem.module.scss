@@ -1,0 +1,46 @@
+.ProductItem {
+  background-color: #ccc;
+  height: 70vw;
+  width: 45vw;
+  max-width: 300px;
+  min-height: 280px;
+  max-height: 450px;
+  border-radius: 16px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-disabled {
+    opacity: .8;
+  }
+
+  &-image {
+    height: 40vw;
+    max-height: 284px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  &-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &-cost {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-title {
+      font-weight: 600;
+    }
+
+    &-weight {
+      opacity: 0.6;
+    }
+  }
+}

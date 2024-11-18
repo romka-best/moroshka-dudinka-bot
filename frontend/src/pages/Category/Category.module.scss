@@ -1,0 +1,29 @@
+.Category {
+  &-title {
+    padding: 16px 16px 0 16px;
+  }
+
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-header {
+    position: sticky;
+    width: 100%;
+    padding: 16px;
+    border-radius: 0 0 16px 16px;
+    z-index: 2;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--adm-color-border);
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,1 @@
+export const selectUser = select => select.user;
