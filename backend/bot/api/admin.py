@@ -46,6 +46,8 @@ async def get_order_by_id(order_id: str):
         'id': order.id,
         'user': user.to_dict(),
         'items': items,
+        'phone': order.phone,
+        'comment': order.comment,
         'status': order.status,
     }
 

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from google.cloud import firestore
 
 from bot.database.models.order import OrderItem
@@ -10,7 +12,9 @@ async def initialize_order(
     transaction,
     cart_id: str,
     user_id: str,
-    items: list[OrderItem]
+    items: list[OrderItem],
+    phone: str,
+    comment: Optional[str] = None,
 ):
-    await write_order_in_transaction(transaction, user_id, items)
-    await update_cart_in_transaction(transaction, cart_id, {"items": []})
+    await write_order_in_transaction(transaction, user_id, items, phone, comment)
+    await update_cart_in_transaction(transaction, cart_id, {'items': []})

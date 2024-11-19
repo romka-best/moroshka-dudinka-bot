@@ -27,7 +27,7 @@ async def create_order(created_order: CreateOrder):
         product = await get_product(cart_item.product_id)
         items.append(OrderItem(product=product, count=cart_item.count))
     transaction = firebase.db.transaction()
-    await initialize_order(transaction, cart.id, cart.user_id, items)
+    await initialize_order(transaction, cart.id, cart.user_id, items, created_order.phone, created_order.comment)
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
@@ -46,6 +46,8 @@ async def get_order_by_id(order_id: str):
         'id': order.id,
         'user_id': order.user_id,
         'items': items,
+        'phone': order.phone,
+        'comment': order.comment,
         'status': order.status,
     }
 
@@ -61,6 +63,8 @@ async def get_user_orders_by_user_id(user_id: str):
             'id': order.id,
             'status': order.status,
             'items': items,
+            'phone': order.phone,
+            'comment': order.comment,
             'created_at': order.created_at,
         })
 
