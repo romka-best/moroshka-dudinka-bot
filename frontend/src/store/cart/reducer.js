@@ -9,6 +9,7 @@ import {
   EDIT_CART_ITEM_SUCCESS,
   EDIT_CART_ITEM_FAIL,
   EDIT_CART_ITEM_COUNT,
+  CLEAR_CART_STATE,
 } from './constants';
 
 const initialState = {
@@ -99,6 +100,13 @@ export const cartReducer = (state = initialState, { type, response, count, produ
       return ({
         ...state,
         cart: newCartCount,
+      });
+
+    case CLEAR_CART_STATE:
+      return ({
+        ...state,
+        cart: [],
+        count: null,
       });
 
     default:

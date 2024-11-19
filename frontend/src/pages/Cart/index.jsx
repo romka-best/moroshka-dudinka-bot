@@ -10,6 +10,7 @@ import { Player } from '@lordicon/react';
 import EmptyCart from '../../assets/emptyCart.json';
 import { useNavigate } from 'react-router-dom';
 import ProductInfo from '../../components/ProductInfo';
+import CreateOrderPopup from '../../components/CreateOrderPopup';
 
 const { Item: ListItem } = List;
 
@@ -19,6 +20,7 @@ const Cart = () => {
   const { cart, loading, cartId } = useSelector(selectCart);
   const [infoVisible, setInfoVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
+  const [isCreateOrderVisible, setIsCreateOrderVisible] = useState(false);
 
   // Иконка
   const emptyIconRef = useRef(null);
@@ -63,6 +65,8 @@ const Cart = () => {
   }, 300);
 
   const handleChangeInfoVisible = () => setInfoVisible(!infoVisible);
+
+  const handleChangeOrderVisible = () => setIsCreateOrderVisible(!isCreateOrderVisible);
 
   const onClickProduct = product => {
     setCurrentProduct(product);
@@ -145,7 +149,17 @@ const Cart = () => {
         )
         : (
           <main className={css['Cart-main']}>
-            <ProductInfo product={currentProduct} visible={infoVisible} onClose={handleChangeInfoVisible} />
+            <ProductInfo
+              product={currentProduct}
+              visible={infoVisible}
+              onClose={handleChangeInfoVisible}
+            />
+            
+            <CreateOrderPopup
+              visible={isCreateOrderVisible}
+              onClose={handleChangeOrderVisible}
+              cartSum={cartSum}
+            />
 
             {(Array.isArray(cart) && cart.length > 0)
               ? (
@@ -160,7 +174,7 @@ const Cart = () => {
                         {Utils.formatPrice(cartSum)}
                       </p>
                     </div>
-                    <Button block color='primary'>Оформить заказ</Button>
+                    <Button onClick={handleChangeOrderVisible} block color='primary'>Оформить заказ</Button>
                   </footer>
                 </>
               )

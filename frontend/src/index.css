@@ -10,17 +10,17 @@ body {
 }
 
 :root {
-  --adm-color-primary: #1677ff;
+  --adm-color-primary: var(--tg-theme-button-color, #1677ff);
   --adm-color-success: #00b578;
   --adm-color-warning: #ff8f1f;
   --adm-color-danger: #ff3141;
 
-  --adm-color-white: #ffffff;
-  --adm-color-text: #333333;
-  --adm-color-text-secondary: #666666;
-  --adm-color-weak: #999999;
-  --adm-color-light: #cccccc;
-  --adm-color-border: #eeeeee;
-  --adm-color-box: #f5f5f5;
-  --adm-color-background: #ffffff;
+  --adm-color-white: var(--tg-theme-bg-color, #ffffff);
+  --adm-color-text: var(--tg-theme-text-color, #333333);
+  --adm-color-text-secondary: var(--tg-theme-hint-color, #666666);
+  --adm-color-weak: var(--tg-theme-hint-color, #999999);
+  --adm-color-light: var(--tg-theme-hint-color, #cccccc);
+  --adm-color-border: var(--tg-theme-bg-color, #eeeeee);
+  --adm-color-box: var(--tg-theme-bg-color, #f5f5f5);
+  --adm-color-background: var(--tg-theme-bg-color, #ffffff);
 }

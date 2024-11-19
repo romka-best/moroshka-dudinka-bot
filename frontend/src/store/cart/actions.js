@@ -10,6 +10,7 @@ import {
   EDIT_CART_ITEM_SUCCESS,
   EDIT_CART_ITEM_FAIL,
   EDIT_CART_ITEM_COUNT,
+  CLEAR_CART_STATE,
 } from './constants';
 
 export const getCartById = cartId => ({
@@ -40,4 +41,8 @@ export const editCartItemCount = (count, product_id) => ({
   type: EDIT_CART_ITEM_COUNT,
   product_id,
   count
+});
+
+export const clearCartState = () => ({
+  type: CLEAR_CART_STATE,
 });
