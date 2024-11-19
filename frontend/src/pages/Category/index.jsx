@@ -39,9 +39,10 @@ const Category = () => {
   ), [products]);
 
   const handleLoadMore = async () => {    
+    const typeId = params?.id === 'ALL' ? '' : params?.id;
     
     if (!loadingMore) {
-      await dispatch(getMoreProducts(productsPagination?.page + 1, search));
+      await dispatch(getMoreProducts(productsPagination?.page + 1, search, typeId));
     }
   };
   
