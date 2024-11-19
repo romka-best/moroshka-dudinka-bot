@@ -26,13 +26,16 @@ async def create_product_object(
         composition=composition,
         size=size,
         count=count,
+        is_deleted=False,
     )
 
 
-async def create_product_type_object(name: str) -> ProductType:
+async def create_product_type_object(name: str, icon: str) -> ProductType:
     product_type_ref = firebase.db.collection(ProductType.COLLECTION_NAME).document()
     return ProductType(
         id=product_type_ref.id,
         name=name,
+        system_name=name.lower(),
+        icon=icon,
         is_deleted=False,
     )

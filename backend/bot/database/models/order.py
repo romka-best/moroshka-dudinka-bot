@@ -26,11 +26,13 @@ class OrderItem(BaseModel):
 
 
 class Order(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "orders"
+    COLLECTION_NAME: ClassVar[str] = 'orders'
 
     id: str
     user_id: str
     items: list[OrderItem]
+    phone: str
+    comment: Optional[str] = None
     status: OrderStatus = OrderStatus.PLACED
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
     edited_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -41,6 +43,8 @@ class Order(BaseModel):
 
 class CreateOrder(BaseModel):
     cart_id: str
+    phone: str
+    comment: Optional[str] = None
 
 
 class UpdateOrder(BaseModel):

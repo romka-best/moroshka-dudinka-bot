@@ -5,10 +5,12 @@ from pydantic import BaseModel, Field
 
 
 class ProductType(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "product_types"
+    COLLECTION_NAME: ClassVar[str] = 'product_types'
 
     id: str
     name: str
+    system_name: str
+    icon: str
     is_deleted: Optional[bool] = False
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
     edited_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -19,10 +21,16 @@ class ProductType(BaseModel):
 
 class CreateProductType(BaseModel):
     name: str
+    icon: Optional[str] = 'DEFAULT'
+
+
+class UpdateProductType(BaseModel):
+    name: Optional[str] = None
+    icon: Optional[str] = None
 
 
 class Product(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "products"
+    COLLECTION_NAME: ClassVar[str] = 'products'
 
     id: str
     title: str
@@ -35,6 +43,7 @@ class Product(BaseModel):
     composition: Optional[str]
     size: Optional[dict]
     count: int
+    is_deleted: Optional[bool] = False
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
     edited_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -52,3 +61,15 @@ class CreateProduct(BaseModel):
     composition: Optional[str] = None
     size: Optional[dict] = None
     count: int
+
+
+class UpdateProduct(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    cost: Optional[int] = None
+    weight: Optional[int] = None
+    photos: Optional[list[str]] = []
+    type_ids: Optional[list[str]] = []
+    composition: Optional[str] = None
+    size: Optional[dict] = None
+    count: Optional[int] = None

@@ -5,7 +5,7 @@ from pydantic import Field, BaseModel
 
 
 class User(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "users"
+    COLLECTION_NAME: ClassVar[str] = 'users'
 
     id: str
     first_name: str

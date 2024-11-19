@@ -16,7 +16,7 @@ async def destruct_product_type(
     for product in products:
         if product_type_id in product.type_ids:
             await update_product_in_transaction(transaction, product.id, {
-                "type_ids": list(filter(lambda type_id: product_type_id != type_id, product.type_ids)),
+                'type_ids': list(filter(lambda type_id: product_type_id != type_id, product.type_ids)),
             })
 
-    await update_product_type_in_transaction(transaction, product_type_id, {"is_deleted": True})
+    await update_product_type_in_transaction(transaction, product_type_id, {'is_deleted': True})

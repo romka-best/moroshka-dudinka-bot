@@ -15,7 +15,7 @@ class CartItem(BaseModel):
 
 
 class Cart(BaseModel):
-    COLLECTION_NAME: ClassVar[str] = "carts"
+    COLLECTION_NAME: ClassVar[str] = 'carts'
 
     id: str
     user_id: str
