@@ -100,6 +100,7 @@ const Cart = () => {
             }
             extra={
               <Stepper
+                className={css['Cart-product-stepper']}
                 min={0}
                 max={item?.product?.count}
                 defaultValue={item?.count}

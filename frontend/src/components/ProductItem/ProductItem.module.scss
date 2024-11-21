@@ -1,5 +1,5 @@
 .ProductItem {
-  background-color: #ccc;
+  background-color: var(--tg-theme-secondary-bg-color, #ccc);
   height: 70vw;
   width: 45vw;
   max-width: 300px;
