@@ -97,7 +97,7 @@ async def create_product(created_product: CreateProduct):
 
 
 @admin_router.post('/products/image', tags=['product'])
-async def upload_image(file: UploadFile = File(...)):
+async def upload_product_image(file: UploadFile = File(...)):
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail='Uploaded file is not an image')
 
