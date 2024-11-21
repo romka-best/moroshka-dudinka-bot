@@ -1,6 +1,7 @@
 .Category {
   &-title {
-    padding: 16px 16px 0 16px;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   &-container {
@@ -25,5 +26,9 @@
     background: var(--adm-color-background);
     border-bottom: 1px solid var(--adm-color-border);
     margin-bottom: 16px;
+    
+    &-nav {
+      background: var(--adm-color-background);
+    }
   }
 }

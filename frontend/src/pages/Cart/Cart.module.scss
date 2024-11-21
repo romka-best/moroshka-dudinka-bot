@@ -32,7 +32,7 @@
       font-size: 18px;
     }
   }
-  
+
   &-header {
     display: flex;
     justify-content: space-between;
@@ -45,18 +45,26 @@
       align-items: center;
       gap: 8px;
 
-      & > p:not(:first-child)::before {
+      &>p:not(:first-child)::before {
         content: '·';
         margin-right: 8px;
       }
 
-      & > p:not(:first-child) {
+      &>p:not(:first-child) {
         opacity: .8;
       }
     }
 
     &-image {
       border-radius: 8px;
+    }
+
+    &-stepper {
+      --border-radius: 8px;
+      --button-background-color: var(--adm-color-primary);
+      --button-text-color: var(--adm-color-white);
+      --button-width: 40px;
+      --height: 29px;
     }
   }
 

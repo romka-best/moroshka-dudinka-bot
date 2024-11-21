@@ -18,20 +18,10 @@ const AddToCartButton = ({ product, size = 'middle' }) => {
     dispatch(editCartItem(cartId, product?.id, count));
   }, 600);
 
-  const handleAddToCart = () => {
-    dispatch(editCartItemCount(1, product?.id));
-    dispatch(editCartItem(cartId, product?.id, 1))
-  };
-
   const handleChangeStepper = count => {
+    debouncedEditCartItemCancel();
     dispatch(editCartItemCount(count, product?.id));
-
-    if (count !== 0) {
-      debouncedEditCartItem(count);
-    } else {
-      debouncedEditCartItemCancel();
-      dispatch(editCartItem(cartId, product?.id, count));
-    }
+    debouncedEditCartItem(count);
   };
 
   const renderButton = useMemo(() => {
@@ -81,7 +71,7 @@ const AddToCartButton = ({ product, size = 'middle' }) => {
             }
             color='primary'
             size={size}
-            onClick={handleAddToCart}
+            onClick={() => handleChangeStepper(1)}
           >
             В корзину
           </Button>

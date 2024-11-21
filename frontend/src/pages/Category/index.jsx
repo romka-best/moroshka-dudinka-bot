@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getMoreProducts, getProducts } from '../../store/products/actions';
 import css from './Category.module.scss';
-import { Grid, InfiniteScroll, SearchBar, SpinLoading } from 'antd-mobile';
+import { Grid, InfiniteScroll, NavBar, SearchBar, SpinLoading } from 'antd-mobile';
 import { selectProducts } from '../../store/products/selector';
 import ProductItem from '../../components/ProductItem';
 import ProductInfo from '../../components/ProductInfo';
@@ -12,6 +12,7 @@ import Utils from '../../Utils';
 const Category = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, products, productsPagination, loadingMore } = useSelector(selectProducts);
   const [infoVisible, setInfoVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
@@ -57,7 +58,11 @@ const Category = () => {
 
   return (
     <div className={css['Category-wrapper']}>
-      <h1 className={css['Category-title']}>{params?.name}</h1>
+      <NavBar className={css['Category-header-nav']} onBack={() => navigate('/catalog')} back='Каталог'>
+        <p className={css['Category-title']}>
+          {params?.name}
+        </p>
+      </NavBar>
       <div className={css['Category-header']}>
         <SearchBar placeholder={searchBarPlaceholder} onChange={handleChangeSearch} />
       </div>

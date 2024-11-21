@@ -59,7 +59,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 26px 16px;
-    background: #ccc;
+    background: var(--tg-theme-section-bg-color, #ccc);
     border-radius: 16px 16px 0 0;
 
     &-cost {
