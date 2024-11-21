@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { Button, Stepper } from 'antd-mobile';
 import { useDispatch, useSelector } from 'react-redux';
@@ -89,6 +90,11 @@ const AddToCartButton = ({ product, size = 'middle' }) => {
   }, [product.count, cartItem, debouncedEditCartItem, cart, cartItem]);
 
   return renderButton;
+};
+
+AddToCartButton.propTypes = {
+  product: PropTypes.object,
+  size: PropTypes.string,
 };
 
 export default AddToCartButton;

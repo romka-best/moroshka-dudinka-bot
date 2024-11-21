@@ -1,0 +1,1 @@
+export const selectOrders = select => select.orders;
