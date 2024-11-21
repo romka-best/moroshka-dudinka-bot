@@ -68,8 +68,8 @@ class UpdateProduct(BaseModel):
     description: Optional[str] = None
     cost: Optional[int] = None
     weight: Optional[int] = None
-    photos: Optional[list[str]] = []
-    type_ids: Optional[list[str]] = []
+    photos: Optional[list[str]] = None
+    type_ids: Optional[list[str]] = None
     composition: Optional[str] = None
     size: Optional[dict] = None
     count: Optional[int] = None
