@@ -9,20 +9,13 @@ import {
 
 const initialState = {
   loading: false,
-  orders: {},
+  orders: [],
 };
 
 export const orderReducer = (state = initialState, { type, response }) => {
-  console.log(response, 'response');
-
   switch (type) {
-    case CREATE_ORDER_START:
-      return ({
-        loading: true,
-        ...state,
-      });
-
     case CREATE_ORDER_SUCCESS:
+    case CREATE_ORDER_START:
       return ({
         loading: true,
         ...state,
@@ -34,19 +27,18 @@ export const orderReducer = (state = initialState, { type, response }) => {
         ...state,
       });
 
+    case GET_USER_ORDERS_FAIL:
     case GET_USER_ORDERS_START:
       return ({
         ...state,
+        loading: true
       });
 
     case GET_USER_ORDERS_SUCCESS:
       return ({
         ...state,
-      });
-
-    case GET_USER_ORDERS_FAIL:
-      return ({
-        ...state,
+        loading: false,
+        orders: response,
       });
 
     default:
