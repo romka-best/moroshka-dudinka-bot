@@ -52,8 +52,11 @@ const Category = () => {
   const searchBarPlaceholder = params.id === 'ALL' ? 'Поиск' : `Поиск по категории ${params?.name.toLowerCase()}`;
 
   const handleChangeSearch = Utils.debounce(title => {
-    dispatch(getProducts(title, params?.id));
+    dispatch(getProducts(title, params.id === 'ALL' ? '' : params?.id));
     setSearch(title);
+    window.scrollTo({
+      top: 0,
+    });
   }, 1000);
 
   return (
