@@ -7,12 +7,37 @@
 
   &-order {
     &-card {
-      padding: 16px;
+      display: flex;
+      gap: 16px;
+      padding: 8px;
       border-radius: 16px;
-      background: #ccc;
+      background: var(--tg-theme-secondary-bg-color, #ccc);;
       
       &:not(:last-child) {
         margin-bottom: 16px;
+      }
+
+      &-images {
+        width: 68px;
+        height: 68px;
+      }
+
+      &-image {
+        &-0 {
+          border-radius: 8px 0 0 0;
+        }
+        
+        &-1 {
+          border-radius: 0 8px 0 0;
+        }
+        
+        &-2 {
+          border-radius: 0 0 0 8px;
+        }
+        
+        &-3 {
+          border-radius: 0 0 8px 0;
+        }
       }
     }
   }
