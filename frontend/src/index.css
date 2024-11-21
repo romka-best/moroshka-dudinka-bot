@@ -9,7 +9,7 @@ body {
   margin: 0;
 }
 
-:root :root {
+:root:root {
   --adm-color-primary: var(--tg-theme-button-color, #1677ff);
   --adm-color-success: #00b578;
   --adm-color-warning: #ff8f1f;
