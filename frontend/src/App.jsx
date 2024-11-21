@@ -13,6 +13,10 @@ import { selectUser } from './store/user/selector';
 import { getCartById } from './store/cart/actions';
 import { selectCart } from './store/cart/selector';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
 const tg = window.Telegram.WebApp;
 
 const { Item: TabItem } = TabBar;
@@ -31,6 +35,9 @@ function App() {
   const { count } = useSelector(selectCart);
 
   useLayoutEffect(() => {
+    dayjs.extend(localizedFormat);
+    dayjs.locale('ru');
+
     tg.ready();
     tg.expand();
     tg.disableVerticalSwipes();

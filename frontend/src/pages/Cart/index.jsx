@@ -134,7 +134,7 @@ const Cart = () => {
     <div className={css['Cart']}>
       <div className={css['Cart-header']}>
         <h1 className={css['Cart-title']}>Корзина</h1>
-        {!isCartEmpty && (
+        {!isCartEmpty && !loading && (
           <Button color='danger' fill='none' onClick={handleDeleteCart}>
             <DeleteOutline />
           </Button>

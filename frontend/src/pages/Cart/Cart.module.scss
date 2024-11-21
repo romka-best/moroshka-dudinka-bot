@@ -22,8 +22,10 @@
     width: 100%;
     padding: 16px 16px calc(56px + 16px) 16px;
     border-radius: 16px 16px 0 0;
-    background: #fff;
+    background: var(--adm-color-background);
     border-top: 1px solid var(--adm-color-border);
+
+    animation: appearFooter .3s ease;
 
     &-sum {
       font-weight: 600;
@@ -74,5 +76,15 @@
       height: 60vh;
       flex-direction: column;
     }
+  }
+}
+
+@keyframes appearFooter {
+  from {
+    translate: 0 50px;
+  }
+
+  to {
+    translate: 0 0;
   }
 }
