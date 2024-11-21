@@ -1,6 +1,6 @@
 from typing import Optional
 
-from google.cloud.firestore_v1 import FieldFilter
+from google.cloud.firestore_v1 import FieldFilter, Query
 
 from bot.database.main import firebase
 from bot.database.models.order import Order
@@ -25,6 +25,7 @@ async def get_orders() -> list[Order]:
 async def get_orders_by_user_id(user_id: str) -> list[Order]:
     orders = firebase.db.collection(Order.COLLECTION_NAME) \
         .where(filter=FieldFilter('user_id', '==', user_id)) \
+        .order_by('created_at', direction=Query.DESCENDING) \
         .stream()
 
     return [
