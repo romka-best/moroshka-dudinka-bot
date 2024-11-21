@@ -96,7 +96,7 @@ async def create_product(created_product: CreateProduct):
     )
 
 
-@admin_router.post('/products/image', tags=['product'])
+@admin_router.post('/products/images', tags=['product'])
 async def upload_product_image(file: UploadFile = File(...)):
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail='Uploaded file is not an image')
@@ -104,7 +104,8 @@ async def upload_product_image(file: UploadFile = File(...)):
     photo_name = f'{uuid4()}.{file.filename.split(".")[-1]}'
     photo_path = f'products/{photo_name}'
     photo_blob = firebase.bucket.new_blob(photo_path)
-    await photo_blob.upload(file.file, content_type=file.content_type)
+    photo_data = await file.read()
+    await photo_blob.upload(photo_data, content_type=file.content_type)
     photo_link = firebase.get_public_url(photo_blob.name)
 
     return JSONResponse(
