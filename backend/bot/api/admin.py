@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException, status
+from uuid import uuid4
+
+from fastapi import APIRouter, HTTPException, status, UploadFile, File
 from fastapi.responses import JSONResponse
 
 from bot.database.main import firebase
@@ -91,6 +93,24 @@ async def create_product(created_product: CreateProduct):
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
         content={'message': f'Product {product.id} was created'}
+    )
+
+
+@admin_router.post('/products/images', tags=['product'])
+async def upload_product_image(file: UploadFile = File(...)):
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail='Uploaded file is not an image')
+
+    photo_name = f'{uuid4()}.{file.filename.split(".")[-1]}'
+    photo_path = f'products/{photo_name}'
+    photo_blob = firebase.bucket.new_blob(photo_path)
+    photo_data = await file.read()
+    await photo_blob.upload(photo_data, content_type=file.content_type)
+    photo_link = firebase.get_public_url(photo_blob.name)
+
+    return JSONResponse(
+        status_code=status.HTTP_201_CREATED,
+        content={'result': photo_link}
     )
 
 
