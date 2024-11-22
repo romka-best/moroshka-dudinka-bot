@@ -1,8 +1,11 @@
 from uuid import uuid4
 
+from aiogram import Bot
+from aiogram.enums import ParseMode
 from fastapi import APIRouter, HTTPException, status, UploadFile, File
 from fastapi.responses import JSONResponse
 
+from bot.config import config
 from bot.database.main import firebase
 from bot.database.models.order import UpdateOrder
 from bot.database.models.product import CreateProductType, CreateProduct, UpdateProduct, UpdateProductType
@@ -61,9 +64,18 @@ async def update_order_by_id(order_id: str, updated_order: UpdateOrder):
         raise HTTPException(status_code=404, detail='Order not found')
 
     if updated_order.status is not None and updated_order.status != order.status:
+        order.status = updated_order.status
         await update_order(order.id, {
-            'status': updated_order.status
+            'status': order.status,
         })
+
+        user = await get_user(order.user_id)
+        bot = Bot(token=config.BOT_TOKEN)
+        await bot.send_message(
+            chat_id=user.id,
+            text=f'Сменился статус заказа {order.id} на {order.status}!',
+            parse_mode=ParseMode.HTML,
+        )
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
