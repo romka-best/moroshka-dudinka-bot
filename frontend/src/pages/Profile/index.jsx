@@ -5,6 +5,11 @@ import { selectUser } from '../../store/user/selector';
 import css from './Profile.module.scss';
 import { selectOrders } from '../../store/order/selector';
 import dayjs from 'dayjs';
+import { Grid, Image, Steps } from 'antd-mobile';
+
+const { Step } = Steps;
+
+const ORDER_STATUSES = ['PLACED', 'CONFIRMED', 'PAID', 'COMPLETED'];
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -16,11 +21,37 @@ const Profile = () => {
   }, [user?.id]);
 
   const ordersRender = useMemo(() => (
-    orders?.map?.(order => (
-      <div key={order?.id} className={css['Profile-order-card']}>
-        <p>Заказ от {dayjs(order?.created_at).format('LL')}</p>
-      </div>
-    ))
+    orders?.map?.(order => {
+      const orderImages = order?.items?.slice(0, 4)?.map?.((item, index) => (
+        <Image
+          key={item?.product?.id}
+          className={css[`Profile-order-card-image-${index}`]}
+          fit='cover'
+          height={32}
+          width={32}
+          src={item?.product?.photos?.[0] ?? '/404'} 
+        />
+      ));
+
+      console.log(ORDER_STATUSES.indexOf(order?.status))
+
+      return (
+        <div key={order?.id} className={css['Profile-order-card']}>
+          <Grid columns={2} gap={4} className={css['Profile-order-card-images']}>
+            {orderImages}
+          </Grid>
+          <div>
+            <p>Заказ от {dayjs(order?.created_at).format('LLL')}</p>
+            <Steps current={ORDER_STATUSES.indexOf(order?.status)}>
+              <Step title='Создан' />
+              <Step title='Собран' />
+              <Step title='Оплачен' />
+              <Step title='Завершен' />
+            </Steps>
+          </div>
+        </div>
+      );
+    })
   ), [orders]);
 
   return (

@@ -45,12 +45,12 @@
       align-items: center;
       gap: 8px;
 
-      &>p:not(:first-child)::before {
+      & > p:not(:first-child)::before {
         content: '·';
         margin-right: 8px;
       }
 
-      &>p:not(:first-child) {
+      & > p:not(:first-child) {
         opacity: .8;
       }
     }
@@ -65,6 +65,7 @@
       --button-text-color: var(--adm-color-white);
       --button-width: 40px;
       --height: 29px;
+      --input-background-color: var(--tg-theme-section-bg-color, #cecece);
     }
   }
 
