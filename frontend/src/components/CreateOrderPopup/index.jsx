@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import { clearCartState } from '../../store/cart/actions';
 import { useIMask } from 'react-imask';
 
+const tg = window.Telegram.WebApp;
+
 const CreateOrderPopup = ({ visible, onClose, cartSum }) => {
   const dispatch = useDispatch();
   const { cartId: cart_id } = useSelector(selectCart);
@@ -41,6 +43,7 @@ const CreateOrderPopup = ({ visible, onClose, cartSum }) => {
       content: <p className={css['CreateOrderPopup-toast']}>Заказ успешно создан</p>,
       duration: 2500
     });
+    tg.HapticFeedback.notificationOccurred('success');
     dispatch(clearCartState());
     navigate('/profile');
     onClose();
@@ -51,7 +54,8 @@ const CreateOrderPopup = ({ visible, onClose, cartSum }) => {
       icon: 'fail',
       content: <p className={css['CreateOrderPopup-toast']}>Ошибка в оформлении заказа, попробуйте позже</p>,
       duration: 2500
-    })
+    });
+    tg.HapticFeedback.notificationOccurred('error');
   };
 
   const handleCreateOrder = () => {

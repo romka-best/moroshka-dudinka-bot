@@ -25,21 +25,21 @@ export const deleteCartById = cartId => ({
   types: [DELETE_CART_BY_ID_START, DELETE_CART_BY_ID_SUCCESS, DELETE_CART_BY_ID_FAIL],
 });
 
-export const editCartItem = (cartId, product_id, count) => ({
+export const editCartItem = (cartId, product, count) => ({
   method: PUT,
   body: {
-    product_id,
+    product_id: product?.id,
     count,
   },
   url: `${API_BASE}/carts/${cartId}`,
   types: [EDIT_CART_ITEM_START, EDIT_CART_ITEM_SUCCESS, EDIT_CART_ITEM_FAIL],
-  product_id,
+  product,
   count
 });
 
-export const editCartItemCount = (count, product_id) => ({
+export const editCartItemCount = (count, product) => ({
   type: EDIT_CART_ITEM_COUNT,
-  product_id,
+  product,
   count
 });
 

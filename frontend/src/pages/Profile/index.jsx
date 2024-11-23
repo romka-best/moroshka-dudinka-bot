@@ -33,8 +33,6 @@ const Profile = () => {
         />
       ));
 
-      console.log(ORDER_STATUSES.indexOf(order?.status))
-
       return (
         <div key={order?.id} className={css['Profile-order-card']}>
           <Grid columns={2} gap={4} className={css['Profile-order-card-images']}>
