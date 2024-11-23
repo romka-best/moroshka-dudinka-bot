@@ -104,6 +104,12 @@ function App() {
   const handleChangeTab = (route) => {
     navigate(route);
 
+    tg.HapticFeedback.selectionChanged();
+
+    window.scrollTo({
+      top: 0,
+    });
+
     switch (route) {
       case '/catalog':
         catalogRef.current?.playFromBeginning();

@@ -8,6 +8,8 @@ import useDebounce from '../../hooks/ui/useDebounce';
 import css from './AddToCartButton.module.scss';
 import classNames from 'classnames';
 
+const tg = window.Telegram.WebApp;
+
 const AddToCartButton = ({ product, size = 'middle' }) => {
   const dispatch = useDispatch();
   const { cart, cartId } = useSelector(selectCart);
@@ -15,12 +17,14 @@ const AddToCartButton = ({ product, size = 'middle' }) => {
   const cartItem = cart.find(item => item.product.id === product.id);
 
   const [debouncedEditCartItem, debouncedEditCartItemCancel] = useDebounce(count => {
-    dispatch(editCartItem(cartId, product?.id, count));
+    dispatch(editCartItem(cartId, product, count));
   }, 600);
 
   const handleChangeStepper = count => {
+    tg.HapticFeedback.impactOccurred('medium');
+
+    dispatch(editCartItemCount(count, product));
     debouncedEditCartItemCancel();
-    dispatch(editCartItemCount(count, product?.id));
     debouncedEditCartItem(count);
   };
 
