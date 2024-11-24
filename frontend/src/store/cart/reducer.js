@@ -100,7 +100,7 @@ export const cartReducer = (state = initialState, { type, response, count, produ
       return ({
         ...state,
         cart: newCartCount,
-        count: newCartCount?.length,
+        count: newCartCount?.length === 0 ? null : newCartCount?.length,
       });
 
     case CLEAR_CART_STATE:

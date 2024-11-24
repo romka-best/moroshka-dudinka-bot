@@ -1,0 +1,11 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M41 13C41 14.3132 40.7413 15.6136 40.2388 16.8268C39.7362 18.0401 38.9997 19.1425 38.0711 20.0711C37.1425 20.9997 36.0401 21.7362 34.8268 22.2388C33.6136 22.7413 32.3132 23 31 23V3C32.3132 3 33.6136 3.25866 34.8268 3.7612C36.0401 4.26375 37.1425 5.00035 38.0711 5.92893C38.9997 6.85752 39.7362 7.95991 40.2388 9.17317C40.7413 10.3864 41 11.6868 41 13Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M31 3V1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 27H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 19H27" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 47L14 33.908" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 44C22 44.394 22.0776 44.7841 22.2284 45.1481C22.3791 45.512 22.6001 45.8427 22.8787 46.1213C23.1573 46.3999 23.488 46.6209 23.8519 46.7716C24.2159 46.9224 24.606 47 25 47C25.394 47 25.7841 46.9224 26.1481 46.7716C26.512 46.6209 26.8427 46.3999 27.1213 46.1213C27.3999 45.8427 27.6209 45.512 27.7716 45.1481C27.9224 44.7841 28 44.394 28 44C28 43.606 27.9224 43.2159 27.7716 42.8519C27.6209 42.488 27.3999 42.1573 27.1213 41.8787C26.8427 41.6001 26.512 41.3791 26.1481 41.2284C25.7841 41.0776 25.394 41 25 41C24.606 41 24.2159 41.0776 23.8519 41.2284C23.488 41.3791 23.1573 41.6001 22.8787 41.8787C22.6001 42.1573 22.3791 42.488 22.2284 42.8519C22.0776 43.2159 22 43.606 22 44Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.002 33.91L24.308 41.084" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.25 39H24.218" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 35C22.1826 35 25.2348 33.7357 27.4853 31.4853C29.7357 29.2348 31 26.1826 31 23H7C7 26.1826 8.26428 29.2348 10.5147 31.4853C12.7652 33.7357 15.8174 35 19 35Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

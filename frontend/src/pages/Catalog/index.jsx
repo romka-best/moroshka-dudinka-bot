@@ -9,7 +9,8 @@ import { Grid } from 'antd-mobile';
 const ALL_PRODUCTS_CATEGORY = {
   name: 'Все товары',
   id: 'ALL',
-}
+  icon: 'fridge',
+};
 
 const Catalog = () => {
   const dispatch = useDispatch();

@@ -26,6 +26,10 @@
     background: var(--adm-color-background);
     border-bottom: 1px solid var(--adm-color-border);
     margin-bottom: 16px;
+
+    &-search {
+      --background: var(--tg-theme-secondary-bg-color, #e2e2e2);
+    }
     
     &-nav {
       background: var(--adm-color-background);
