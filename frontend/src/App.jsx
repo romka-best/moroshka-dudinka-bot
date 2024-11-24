@@ -48,6 +48,15 @@ function App() {
     user?.cart?.id && dispatch(getCartById(user?.cart?.id));
   }, [user?.cart]);
 
+  useEffect(() => {
+    if (location?.pathname !== '/' || location?.pathname !== '/catalog') {
+      tg?.BackButton?.show();
+      tg?.BackButton?.onClick(() => navigate('/catalog'));
+    } else {
+      tg?.BackButton?.hide();
+    };
+  }, [location?.pathname]);
+
   const getTabColor = (tabPathname) => {
     if (tabPathname === '/catalog' && location?.pathname === '/') {
       return 'var(--adm-color-primary)';

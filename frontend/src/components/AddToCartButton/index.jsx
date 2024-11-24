@@ -21,10 +21,10 @@ const AddToCartButton = ({ product, size = 'middle' }) => {
   }, 600);
 
   const handleChangeStepper = count => {
+    debouncedEditCartItemCancel();
     tg.HapticFeedback.impactOccurred('medium');
 
     dispatch(editCartItemCount(count, product));
-    debouncedEditCartItemCancel();
     debouncedEditCartItem(count);
   };
 
