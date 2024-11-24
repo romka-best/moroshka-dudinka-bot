@@ -19,27 +19,27 @@ const initialState = {
   count: null,
 };
 
-function updatedCart(cart, productId, count) {
+function updatedCart(cart, product, count) {
   let updatedCart;
 
-  const productExistsInCart = cart.some(item => item.product.id === productId);
+  const productExistsInCart = cart.some(item => item.product.id === product?.id);
 
   switch (true) {
     case count !== 0 && productExistsInCart:
       // Обновляем количество существующего товара в корзине
       updatedCart = cart.map(item => 
-        item.product.id === productId ? { ...item, count } : item
+        item.product.id === product?.id ? { ...item, count } : item
       );
       break;
       
     case count !== 0 && !productExistsInCart:
       // Добавляем новый товар в корзину
-      updatedCart = [...cart, { product: { id: productId }, count }];
+      updatedCart = [...cart, { product: product, count }];
       break;
       
     case count === 0:
       // Удаляем товар из корзины
-      updatedCart = cart.filter(item => item.product.id !== productId);
+      updatedCart = cart.filter(item => item.product.id !== product?.id);
       break;
       
     default:
@@ -49,7 +49,7 @@ function updatedCart(cart, productId, count) {
   return updatedCart;
 };
 
-export const cartReducer = (state = initialState, { type, response, count, product_id }) => {
+export const cartReducer = (state = initialState, { type, response, count, product }) => {
   switch (type) {
     case GET_CART_BY_ID_FAIL:
     case GET_CART_BY_ID_START:
@@ -61,7 +61,7 @@ export const cartReducer = (state = initialState, { type, response, count, produ
       });
       
     case EDIT_CART_ITEM_SUCCESS:
-      const newCart = updatedCart(state.cart, product_id, count);
+      const newCart = updatedCart(state.cart, product, count);
 
       return ({
         ...state,
@@ -95,11 +95,12 @@ export const cartReducer = (state = initialState, { type, response, count, produ
       });
 
     case EDIT_CART_ITEM_COUNT:
-      const newCartCount = updatedCart(state.cart, product_id, count);
+      const newCartCount = updatedCart(state.cart, product, count);
 
       return ({
         ...state,
         cart: newCartCount,
+        count: newCartCount?.length,
       });
 
     case CLEAR_CART_STATE:

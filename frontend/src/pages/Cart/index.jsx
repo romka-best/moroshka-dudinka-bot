@@ -14,6 +14,8 @@ import CreateOrderPopup from '../../components/CreateOrderPopup';
 
 const { Item: ListItem } = List;
 
+const tg = window.Telegram.WebApp;
+
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,10 +60,10 @@ const Cart = () => {
     });
   };
 
-  const handleDeleteCartItem = productId => dispatch(editCartItem(cartId, productId, 0));
+  const handleDeleteCartItem = product => dispatch(editCartItem(cartId, product, 0));
 
-  const handleChangeCount = Utils.debounce((productId, count) => {
-    dispatch(editCartItem(cartId, productId, count));
+  const handleChangeCount = Utils.debounce((product, count) => {
+    dispatch(editCartItem(cartId, product, count));
   }, 300);
 
   const handleChangeInfoVisible = () => setInfoVisible(!infoVisible);
@@ -71,7 +73,7 @@ const Cart = () => {
   const onClickProduct = product => {
     setCurrentProduct(product);
     handleChangeInfoVisible();
-  }
+  };
 
   const renderCartItems = useMemo(() => {
     if (!isCartEmpty) {
@@ -83,7 +85,7 @@ const Cart = () => {
               key: 'delete',
               text: 'Удалить',
               color: 'danger',
-              onClick: () => handleDeleteCartItem(item?.product?.id)
+              onClick: () => handleDeleteCartItem(item?.product)
             }
           ]}
         >
@@ -104,7 +106,7 @@ const Cart = () => {
                 min={0}
                 max={item?.product?.count}
                 defaultValue={item?.count}
-                onChange={(count) => handleChangeCount(item?.product?.id, count)}
+                onChange={(count) => handleChangeCount(item?.product, count)}
                 inputReadOnly
               />
             }
@@ -187,7 +189,7 @@ const Cart = () => {
                     description='Видимо Ваша корзина пуста'
                     image={
                       <div className={css['Cart-empty-icon']}>
-                        <Player icon={EmptyCart} ref={emptyIconRef} size={160} />
+                        <Player icon={EmptyCart} ref={emptyIconRef} size={160} colorize={tg?.ThemeParams?.button_color} />
                       </div>
                     }
                   >

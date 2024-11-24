@@ -9,6 +9,8 @@ import ProductItem from '../../components/ProductItem';
 import ProductInfo from '../../components/ProductInfo';
 import Utils from '../../Utils';
 
+const tg = window.Telegram.WebApp;
+
 const Category = () => {
   const params = useParams();
   const dispatch = useDispatch();
@@ -17,14 +19,6 @@ const Category = () => {
   const [infoVisible, setInfoVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
   const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    if (params.id === 'ALL') {
-      dispatch(getProducts());
-    } else {
-      dispatch(getProducts('', params?.id));
-    }
-  }, [params]);
 
   const handleChangeInfoVisible = () => setInfoVisible(!infoVisible);
 
@@ -58,6 +52,19 @@ const Category = () => {
       top: 0,
     });
   }, 1000);
+
+  useEffect(() => {
+    if (params.id === 'ALL') {
+      dispatch(getProducts());
+    } else {
+      dispatch(getProducts('', params?.id));
+    }
+  }, [params]);
+
+  useEffect(() => {
+    tg?.BackButton?.show();
+    tg?.BackButton?.onClick(() => navigate('/catalog'));
+  }, []);
 
   return (
     <div className={css['Category-wrapper']}>
