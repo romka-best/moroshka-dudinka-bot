@@ -186,8 +186,8 @@ async def update_product_type_by_id(product_type_id: str, updated_product_type: 
 
     if updated_product_type:
         await update_product_type(product_type.id, {
-            'name': updated_product_type.name if updated_product_type.name is not None else updated_product_type.name,
-            'icon': updated_product_type.icon if updated_product_type.icon is not None else updated_product_type.icon,
+            'name': updated_product_type.name if updated_product_type.name is not None else product_type.name,
+            'icon': updated_product_type.icon if updated_product_type.icon is not None else product_type.icon,
         })
 
         return JSONResponse(
