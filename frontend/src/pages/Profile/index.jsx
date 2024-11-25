@@ -22,6 +22,7 @@ const Profile = () => {
   return (
     <div className={css['Profile']}>
       <h1 className={css['Profile-title']}>Профиль</h1>
+      {user?.cart?.id}
       {ordersRender}
     </div>
   );

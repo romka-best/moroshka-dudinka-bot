@@ -49,7 +49,7 @@ function App() {
   }, [user?.cart]);
 
   useEffect(() => {
-    if (location?.pathname !== '/' || location?.pathname !== '/catalog') {
+    if (location?.pathname !== '/' && location?.pathname !== '/catalog') {
       tg?.BackButton?.show();
       tg?.BackButton?.onClick(() => navigate('/catalog'));
     } else {
