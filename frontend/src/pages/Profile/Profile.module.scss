@@ -4,4 +4,29 @@
   &-title {
     padding-bottom: 16px;
   }
+
+  &-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  &-empty {
+    --image-height: '160px';
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      flex-direction: column;
+    }
+  }
 }
