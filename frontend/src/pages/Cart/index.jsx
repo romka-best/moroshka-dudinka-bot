@@ -30,10 +30,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getCartById(cartId));
   }, []);
-
-  console.log(cart, 'cart');
-  console.log(loading, 'loading');
-
+  
   useEffect(() => {
     isCartEmpty && emptyIconRef?.current?.playFromBeginning();
   }, [cart, loading]);
