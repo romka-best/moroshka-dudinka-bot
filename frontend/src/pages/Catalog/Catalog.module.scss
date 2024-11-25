@@ -1,4 +1,6 @@
 .Catalog {
+  padding-bottom: 60px;
+
   &-title {
     padding: 16px;
   }
@@ -7,5 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &-category {
+    &-skeleton {
+      --width: 45vw;
+      --height: 45vw;
+      --border-radius: 16px;
+    }
   }
 }
