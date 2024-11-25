@@ -26,6 +26,6 @@ body {
   background: var(--tg-theme-bg-color, #fff);
   
   /* safearea */
-  padding-top: var(--tg-content-safe-area-inset-top); 
-  padding-bottom: var(--tg-content-safe-area-inset-bottom);
+  /* padding-top: var(--tg-content-safe-area-inset-top);  */
+  /* padding-bottom: var(--tg-content-safe-area-inset-bottom); */
 }
