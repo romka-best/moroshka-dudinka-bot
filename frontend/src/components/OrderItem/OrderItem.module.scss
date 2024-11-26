@@ -1,0 +1,120 @@
+.OrderItem {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--tg-theme-secondary-bg-color, #ccc);
+  
+  &-title {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  &-subtitle {
+    font-size: 14px;
+  }
+
+  &-info {
+    display: flex;
+    justify-content: space-between;
+
+    &-segment {
+      &-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end
+      }
+    }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &-status {
+    position: relative;
+    margin-left: 12px;
+    font-size: 14px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 6px;
+    } 
+
+    &-PLACED {
+      &::before {
+        background: #4498ff;
+      }
+    }
+
+    &-CONFIRMED {
+      &::before {
+        background: #44ffcd;
+        animation: appearFooter 1s ease infinite;
+      }
+    }
+
+    &-PAID {
+      &::before {
+        background: #44ff7c;
+      }
+    }
+
+    &-COMPLETED {
+      &::before {
+        background: #5aff44;
+      }
+    }
+
+    &-CANCELED {
+      &::before {
+        background: #ff4444;
+      }
+    }
+  }
+
+  &-images {
+    display: flex;
+    gap: 8px;
+
+    &-item {
+      border-radius: 8px;
+    }
+    
+    &:not(:empty) {
+      margin-top: 8px;
+    }
+
+    &-more {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      width: 64px;
+      background: var(--adm-color-white);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes appearFooter {
+  from {
+    opacity: 1;
+  }
+  
+  50% {
+    opacity: 0.6;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

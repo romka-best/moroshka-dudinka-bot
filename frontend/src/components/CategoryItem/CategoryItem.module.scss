@@ -5,5 +5,28 @@
   max-width: 300px;
   max-height: 300px;
   border-radius: 16px;
-  padding: 16px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-title {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  &-icon {
+    height: 65%;
+    align-self: flex-end;
+
+    & svg {
+      width: 100%;
+      height: 100%;
+      opacity: .5;
+    }
+
+    & path {
+      stroke: var(--adm-color-text);
+    }
+  }
 }

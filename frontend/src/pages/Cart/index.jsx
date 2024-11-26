@@ -14,8 +14,6 @@ import CreateOrderPopup from '../../components/CreateOrderPopup';
 
 const { Item: ListItem } = List;
 
-const tg = window.Telegram.WebApp;
-
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,7 +30,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getCartById(cartId));
   }, []);
-
+  
   useEffect(() => {
     isCartEmpty && emptyIconRef?.current?.playFromBeginning();
   }, [cart, loading]);
@@ -189,7 +187,7 @@ const Cart = () => {
                     description='Видимо Ваша корзина пуста'
                     image={
                       <div className={css['Cart-empty-icon']}>
-                        <Player icon={EmptyCart} ref={emptyIconRef} size={160} colorize={tg?.ThemeParams?.button_color} />
+                        <Player icon={EmptyCart} ref={emptyIconRef} size={160} />
                       </div>
                     }
                   >

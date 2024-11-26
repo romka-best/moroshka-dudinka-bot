@@ -23,6 +23,7 @@ const Category = () => {
   const handleChangeInfoVisible = () => setInfoVisible(!infoVisible);
 
   const handleProductClick = (product) => {
+    tg.HapticFeedback.impactOccurred('heavy');
     setCurrentProduct(product);
     handleChangeInfoVisible();
   };
@@ -61,11 +62,6 @@ const Category = () => {
     }
   }, [params]);
 
-  useEffect(() => {
-    tg?.BackButton?.show();
-    tg?.BackButton?.onClick(() => navigate('/catalog'));
-  }, []);
-
   return (
     <div className={css['Category-wrapper']}>
       <NavBar className={css['Category-header-nav']} onBack={() => navigate('/catalog')} back='Каталог'>
@@ -74,7 +70,7 @@ const Category = () => {
         </p>
       </NavBar>
       <div className={css['Category-header']}>
-        <SearchBar placeholder={searchBarPlaceholder} onChange={handleChangeSearch} />
+        <SearchBar className={css['Category-header-search']} placeholder={searchBarPlaceholder} onChange={handleChangeSearch} />
       </div>
       <div className={css['Category-container']}>
         {!loading

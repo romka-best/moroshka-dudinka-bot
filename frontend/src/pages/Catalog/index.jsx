@@ -4,16 +4,17 @@ import { getProductsTypes } from '../../store/products/actions';
 import { selectProducts } from '../../store/products/selector';
 import CategoryItem from '../../components/CategoryItem';
 import css from './Catalog.module.scss';
-import { Grid } from 'antd-mobile';
+import { Grid, Skeleton } from 'antd-mobile';
 
 const ALL_PRODUCTS_CATEGORY = {
   name: 'Все товары',
   id: 'ALL',
-}
+  icon: 'fridge',
+};
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector(selectProducts);
+  const { categories, loading } = useSelector(selectProducts);
 
   useLayoutEffect(() => {
     dispatch(getProductsTypes());
@@ -27,8 +28,22 @@ const Catalog = () => {
     ))
   ), [categories]);
 
+  const skeletonItems = (
+    <>
+      <Grid.Item>
+        <Skeleton className={css['Catalog-category-skeleton']} animated />
+      </Grid.Item>
+      <Grid.Item>
+        <Skeleton className={css['Catalog-category-skeleton']} animated />
+      </Grid.Item>
+      <Grid.Item>
+        <Skeleton className={css['Catalog-category-skeleton']} animated />
+      </Grid.Item>
+    </>
+  );
+
   return (
-    <div>
+    <div className={css['Catalog']}>
       <h1 className={css['Catalog-title']}>Каталог</h1>
       <div className={css['Catalog-container']}>
         <Grid columns={2} gap={10}>
@@ -36,6 +51,7 @@ const Catalog = () => {
             <CategoryItem category={ALL_PRODUCTS_CATEGORY} />
           </Grid.Item>
           {categoryItems}
+          {loading && !categories?.length && skeletonItems}
         </Grid>
       </div>
     </div>
