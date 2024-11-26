@@ -34,6 +34,8 @@ async def get_all_orders():
         result.append({
             'id': order.id,
             'status': order.status,
+            'items': order.items,
+            'created_at': order.created_at,
         })
 
     return result
@@ -158,6 +160,10 @@ async def update_product_by_id(product_id: str, updated_product: UpdateProduct):
 
 @admin_router.delete('/products/{product_id}', tags=['product'])
 async def delete_product(product_id: str):
+    product = await get_product(product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail='Product not found')
+
     carts = await get_carts()
     transaction = firebase.db.transaction()
     await destruct_product(transaction, product_id, carts)
@@ -203,6 +209,10 @@ async def update_product_type_by_id(product_type_id: str, updated_product_type: 
 
 @admin_router.delete('/products/types/{product_type_id}', tags=['product'])
 async def delete_product_type(product_type_id: str):
+    product_type = await get_product_type(product_type_id)
+    if not product_type:
+        raise HTTPException(status_code=404, detail='Product type not found')
+
     products = await get_products()
     transaction = firebase.db.transaction()
     await destruct_product_type(transaction, product_type_id, products)

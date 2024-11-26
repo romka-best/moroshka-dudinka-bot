@@ -15,7 +15,9 @@ async def get_order(order_id: str) -> Optional[Order]:
 
 
 async def get_orders() -> list[Order]:
-    orders = firebase.db.collection(Order.COLLECTION_NAME).stream()
+    orders = firebase.db.collection(Order.COLLECTION_NAME) \
+        .order_by('created_at', direction=Query.DESCENDING) \
+        .stream()
 
     return [
         Order(**order.to_dict()) async for order in orders
